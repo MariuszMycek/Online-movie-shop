@@ -1,0 +1,60 @@
+@import '../Layout/variables';
+
+nav {
+  background: $nav-bg;
+}
+
+.navbar {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+
+  &__logo {
+    height: 100%;
+    cursor: pointer;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__list-item {
+    height: 100%;
+    list-style: none;
+    margin: 0;
+  }
+
+  &__link {
+    color: $link-color;
+    text-decoration: none;
+    padding: 0 20px;
+    height: 100%;
+    transition: $transition;
+    display: flex;
+    align-items: center;
+    margin: 0 5px;
+
+    &:hover {
+      background: $link-hover-bg;
+    }
+  }
+
+  &__link--active {
+    background: $link-active-bg;
+    color: $link-active-color;
+  }
+
+  &__basket-icon {
+    fill: $icon-default-color;
+    width: 28px;
+    height: 28px;
+  }
+}

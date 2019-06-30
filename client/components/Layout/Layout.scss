@@ -1,0 +1,14 @@
+@import '../Layout/variables';
+
+body {
+  margin: 0;
+  font-family: $primary-font;
+  box-sizing: border-box;
+  background: $body-bg;
+  color: $primary-color;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
