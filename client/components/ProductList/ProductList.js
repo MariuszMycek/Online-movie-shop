@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
-// import { compose } from 'redux';
 
 import Pagination from '../Pagination/Pagination';
 

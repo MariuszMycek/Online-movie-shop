@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Link from 'next/link';
 
 import * as sortActions from '../ProductList/ProductListActions';
 import * as sortTypeActions from '../SortMenu/SortMenuActions';
@@ -8,49 +9,64 @@ import * as sortTypeActions from '../SortMenu/SortMenuActions';
 import './SortMenu.scss';
 
 const SortMenu = props => {
+  const styleClass = 'sort-menu__option';
   return (
     <div className="sort-menu">
       <h3 className="sort-menu__header">Sortuj:</h3>
       <ul className="sort-menu__sorting-options">
-        <li
-          className="sort-menu__option"
-          onClick={() => {
-            props.setSortType('name_asc');
-            props.sortAlphabetically();
-          }}
-        >
-          Nazwa A-Z
-        </li>
-        <li
-          className="sort-menu__option"
-          onClick={() => {
-            props.setSortType('name_desc');
-            props.sortAlphabeticallyReversed();
-          }}
-        >
-          Nazwa Z-A
-        </li>
-        <li
-          className="sort-menu__option"
-          onClick={() => {
-            props.setSortType('price_asc');
-            props.sortByPriceAscending();
-          }}
-        >
-          Cena rosnąco
-        </li>
-        <li
-          className="sort-menu__option"
-          onClick={() => {
-            props.setSortType('price_desc');
-            props.sortByPriceDescending();
-          }}
-        >
-          Cena malejąco
-        </li>
+        <Link href={`/?sort_by=name_asc&page=1`}>
+          <li
+            className={
+              props.sortType === 'name_asc'
+                ? `${styleClass} ${styleClass}--active`
+                : styleClass
+            }
+          >
+            Tytuł A-Z
+          </li>
+        </Link>
+        <Link href={`/?sort_by=name_desc&page=1`}>
+          <li
+            className={
+              props.sortType === 'name_desc'
+                ? `${styleClass} ${styleClass}--active`
+                : styleClass
+            }
+          >
+            Tytuł Z-A
+          </li>
+        </Link>
+        <Link href={`/?sort_by=price_asc&page=1`}>
+          <li
+            className={
+              props.sortType === 'price_asc'
+                ? `${styleClass} ${styleClass}--active`
+                : styleClass
+            }
+          >
+            Cena rosnąco
+          </li>
+        </Link>
+        <Link href={`/?sort_by=price_desc&page=1`}>
+          <li
+            className={
+              props.sortType === 'price_desc'
+                ? `${styleClass} ${styleClass}--active`
+                : styleClass
+            }
+          >
+            Cena malejąco
+          </li>
+        </Link>
       </ul>
     </div>
   );
+};
+
+const mapStateToProps = state => {
+  return {
+    sortType: state.sortType,
+  };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -58,6 +74,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SortMenu);

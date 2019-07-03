@@ -12,8 +12,12 @@
   &__option {
     margin: 15px 0;
     cursor: pointer;
+
     &:hover {
       color: $link-hover-color;
+    }
+    &--active {
+      color: $link-active-color;
     }
   }
 }

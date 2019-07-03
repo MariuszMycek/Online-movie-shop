@@ -2,6 +2,7 @@ import React from 'react';
 import Basket from '../icons/basket.svg';
 import ActiveLink from '../ActiveLink';
 import Link from 'next/link';
+
 import './Header.scss';
 
 const Header = () => (

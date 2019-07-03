@@ -6,6 +6,23 @@ export const SORT_BY_PRICE_ASCENDING = 'SORT_BY_PRICE_ASCENDING';
 export const SORT_BY_PRICE_DESCENDING = 'SORT_BY_PRICE_DESCENDING';
 
 // Export Actions
+export function sortOnLoad(sort_by) {
+  return dispatch => {
+    switch (sort_by) {
+      case 'name_asc':
+        return dispatch(sortAlphabetically());
+      case 'name_desc':
+        return dispatch(sortAlphabeticallyReversed());
+      case 'price_asc':
+        return dispatch(sortByPriceAscending());
+      case 'price_desc':
+        return dispatch(sortByPriceDescending());
+      default:
+        return dispatch(sortAlphabetically());
+    }
+  };
+}
+
 export function getProducts(products) {
   return {
     type: GET_MOVIES,

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
 
 import Row from 'react-bootstrap/Row';
@@ -13,11 +12,10 @@ import ProductList from '../client/components/ProductList/ProductList';
 import data from '../data.json';
 import {
   getProducts,
-  sortAlphabetically,
-  sortByPriceAscending,
-  sortByPriceDescending,
-  sortAlphabeticallyReversed,
+  sortOnLoad,
 } from '../client/components/ProductList/ProductListActions';
+
+import { setSortType } from '../client/components/SortMenu/SortMenuActions';
 
 import 'bootstrap-scss/bootstrap-grid.scss';
 
@@ -45,18 +43,8 @@ const Home = () => (
 Home.getInitialProps = async ({ store, query }) => {
   await store.dispatch(getProducts(data));
   const { sort_by } = query;
-
-  switch (sort_by) {
-    case 'name_asc':
-      store.dispatch(sortAlphabetically());
-    case 'name_desc':
-      store.dispatch(sortAlphabeticallyReversed());
-    case 'price_asc':
-      store.dispatch(sortByPriceAscending());
-    case 'price_desc':
-      store.dispatch(sortByPriceDescending());
-    default:
-  }
+  store.dispatch(sortOnLoad(sort_by));
+  store.dispatch(setSortType(sort_by));
 
   return {};
 };

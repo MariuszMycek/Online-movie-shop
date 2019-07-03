@@ -1,9 +1,9 @@
 import { SET_SORT_TYPE } from './SortMenuActions';
 
 // Initial State
-const initialState = 'name_asc';
+const initialState = '';
 
-export default function products(state = initialState, action) {
+export default function sortType(state = initialState, action) {
   switch (action.type) {
     case SET_SORT_TYPE: {
       return action.sortType;
