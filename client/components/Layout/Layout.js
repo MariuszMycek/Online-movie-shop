@@ -2,13 +2,14 @@ import React from 'react';
 import './Layout.scss';
 
 import Head from '../Head';
-import Nav from '../Nav/Nav';
+import Header from '../Header/Header';
 import Footer from '../Footer/Footter';
 
 const Layout = ({ children }) => (
   <div>
-    <Head title="Movie shop" />
-    <Nav />
+    <Head title="SloMo movie store" />
+    <Header />
+
     {children}
     <Footer />
   </div>

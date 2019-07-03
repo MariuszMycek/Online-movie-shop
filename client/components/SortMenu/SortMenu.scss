@@ -1,0 +1,19 @@
+@import '../Layout/variables';
+
+.sort-menu {
+  padding-bottom: 10px;
+  border-bottom: 1px solid $primary-color;
+
+  &__header {
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
+
+  &__option {
+    margin: 15px 0;
+    cursor: pointer;
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
+}

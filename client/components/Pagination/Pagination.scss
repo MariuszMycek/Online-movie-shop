@@ -1,0 +1,44 @@
+@import '../Layout/variables';
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+
+  &__list {
+    display: flex;
+  }
+
+  &__list-item {
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-width: 35px;
+    height: 35px;
+
+    &:hover {
+      box-shadow: 0 0 1px 1px $link-hover-color;
+    }
+
+    &--active {
+      color: $link-active-color;
+    }
+  }
+
+  &__icon-wrapper {
+    display: flex;
+  }
+
+  &__icon {
+    fill: $icon-default-color;
+    width: 15px;
+    height: 15px;
+
+    &--double-arrow {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

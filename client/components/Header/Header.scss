@@ -1,0 +1,69 @@
+@import '../Layout/variables';
+@import '../Layout/mixins.scss';
+
+.header {
+  background: $nav-bg;
+  margin-bottom: 110px;
+
+  &__container {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    height: 100%;
+    cursor: pointer;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .navbar {
+    background: $nav-bg;
+
+    &__list {
+      display: flex;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    &__list-item {
+      height: 100%;
+    }
+
+    &__link {
+      color: $link-color;
+      text-decoration: none;
+      padding: 0 20px;
+      height: 100%;
+      @include transition(color);
+      display: flex;
+      align-items: center;
+      margin: 0 5px;
+
+      &:hover {
+        color: $link-hover-color;
+        .navbar__basket-icon {
+          fill: $icon-hover-color;
+        }
+      }
+    }
+
+    &__link--active {
+      background: $link-active-bg;
+      color: $link-active-color;
+      .navbar__basket-icon {
+        fill: $icon-active-color;
+      }
+    }
+
+    &__basket-icon {
+      fill: $icon-default-color;
+      width: 28px;
+      height: 28px;
+      @include transition(color);
+    }
+  }
+}

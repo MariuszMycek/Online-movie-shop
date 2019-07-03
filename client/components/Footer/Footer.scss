@@ -1,14 +1,15 @@
 @import '../Layout/variables';
-
-footer {
-  background: $footer-bg;
-}
+@import '../Layout/mixins.scss';
 
 .footer {
-  font-size: $footer-font-size;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
+  background: $footer-bg;
+
+  &__container {
+    font-size: $footer-font-size;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+  }
 
   &__text {
     display: flex;
@@ -19,14 +20,10 @@ footer {
     display: flex;
     justify-content: space-between;
     height: 100%;
-    margin: 0;
-    padding: 0;
   }
 
   &__list-item {
     height: 100%;
-    list-style: none;
-    margin: 0;
   }
 
   &__link {
@@ -34,7 +31,7 @@ footer {
     text-decoration: none;
     padding: 0 20px;
     height: 100%;
-    transition: $transition;
+    @include transition(color);
     display: flex;
     align-items: center;
     margin: 0 5px;

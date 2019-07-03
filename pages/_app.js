@@ -4,10 +4,11 @@ import store from '../client/redux/store';
 import App, { Container } from 'next/app';
 import withRedux from 'next-redux-wrapper';
 
+// import data from '../data.json';
+// import { getProducts } from '../client/components/ProductList/ProductListActions';
+
 class MyApp extends App {
   // static async getInitialProps({ Component, ctx }) {
-  //   await ctx.store.dispatch(fetchLanes());
-
   //   const pageProps = Component.getInitialProps
   //     ? await Component.getInitialProps(ctx)
   //     : {};

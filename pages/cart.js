@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import Layout from '../client/components/Layout/Layout';
 
 const Cart = () => (
-  <div>
-    <Layout />
-  </div>
+  <Layout>
+    <main> </main>
+  </Layout>
 );
 
 // export default connect(state => state)(Home);
