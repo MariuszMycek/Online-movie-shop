@@ -1,9 +1,18 @@
-@import '../Layout/variables';
-@import '../Layout/mixins.scss';
+@import '../../styles/variables';
+@import '../../styles/mixins';
 
 .header {
+  position: fixed;
+  top: 0;
+  z-index: 99;
   background: $nav-bg;
-  margin-bottom: 110px;
+  width: 100%;
+  @include transition($delay: 0.2s);
+
+  &--with-shadow {
+    box-shadow: 0 4px 10px -3px $border-red;
+    margin-top: -2px;
+  }
 
   &__container {
     height: 60px;
@@ -45,6 +54,7 @@
 
       &:hover {
         color: $link-hover-color;
+
         .navbar__basket-icon {
           fill: $icon-hover-color;
         }
@@ -54,6 +64,7 @@
     &__link--active {
       background: $link-active-bg;
       color: $link-active-color;
+
       .navbar__basket-icon {
         fill: $icon-active-color;
       }

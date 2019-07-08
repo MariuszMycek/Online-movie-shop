@@ -1,49 +1,93 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Basket from '../icons/basket.svg';
 import ActiveLink from '../ActiveLink';
 import Link from 'next/link';
+import debounce from 'lodash/debounce';
 
 import './Header.scss';
 
-const Header = () => (
-  <header className="header">
-    <div className="header__container container">
-      <Link href="/">
-        <div className="header__logo">
-          <img src="/static/assets/images/logo.png" alt="logo" />
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrollPosition: window.pageYOffset,
+      headerShadow: false,
+    };
+  }
+
+  // Adds an event listener when the component is mount.
+  componentDidMount() {
+    window.addEventListener('scroll', this.debounced);
+    this.handleScroll();
+  }
+
+  // Remove the event listener when the component is unmount.
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.debounced);
+  }
+
+  // Add debounce for better performance
+  debounced = debounce(() => this.handleScroll(), 50, {
+    maxWait: 500,
+  });
+
+  handleScroll = () => {
+    const currentScrollPosition = window.pageYOffset;
+    const headerShadow = currentScrollPosition > 10;
+
+    this.setState({
+      scrollPosition: currentScrollPosition,
+      headerShadow,
+    });
+  };
+
+  render() {
+    const headerClass = this.state.headerShadow ? 'header header--with-shadow' : 'header';
+    return (
+      <header className={headerClass}>
+        <div className="header__container container">
+          <Link href="/">
+            <div className="header__logo">
+              <img src="/static/assets/images/logo.png" alt="logo" />
+            </div>
+          </Link>
+          <nav className="header__navbar navbar">
+            <ul className="navbar__list">
+              <li className="navbar__list-item">
+                <ActiveLink href="/" className="navbar__link">
+                  HOME
+                </ActiveLink>
+              </li>
+              <li className="navbar__list-item">
+                <ActiveLink href="/faq" className="navbar__link">
+                  FAQ
+                </ActiveLink>
+              </li>
+              <li className="navbar__list-item">
+                <ActiveLink href="/rules" className="navbar__link">
+                  REGULAMIN
+                </ActiveLink>
+              </li>
+              <li className="navbar__list-item">
+                <ActiveLink href="/contact" className="navbar__link">
+                  KONTAKT
+                </ActiveLink>
+              </li>
+              <li className="navbar__list-item">
+                <ActiveLink href="/cart" className="navbar__link">
+                  <Basket className="navbar__basket-icon" />
+                </ActiveLink>
+              </li>
+            </ul>
+          </nav>
         </div>
-      </Link>
-      <nav className="header__navbar navbar">
-        <ul className="navbar__list">
-          <li className="navbar__list-item">
-            <ActiveLink href="/" className="navbar__link">
-              HOME
-            </ActiveLink>
-          </li>
-          <li className="navbar__list-item">
-            <ActiveLink href="/faq" className="navbar__link">
-              FAQ
-            </ActiveLink>
-          </li>
-          <li className="navbar__list-item">
-            <ActiveLink href="/rules" className="navbar__link">
-              REGULAMIN
-            </ActiveLink>
-          </li>
-          <li className="navbar__list-item">
-            <ActiveLink href="/contact" className="navbar__link">
-              KONTAKT
-            </ActiveLink>
-          </li>
-          <li className="navbar__list-item">
-            <ActiveLink href="/cart" className="navbar__link">
-              <Basket className="navbar__basket-icon" />
-            </ActiveLink>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-);
+      </header>
+    );
+  }
+}
+
+// const Header = () => (
+
+// );
 
 export default Header;

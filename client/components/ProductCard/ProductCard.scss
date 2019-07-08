@@ -1,0 +1,50 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.product-card {
+  background: $product-card-bg;
+  margin-bottom: 95px;
+
+  &__image {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  &__product-decription-wrapper {
+    padding-left: 15px;
+    padding-right: 45px;
+  }
+
+  &__product-description {
+    margin-bottom: 35px;
+  }
+
+  &__title {
+    font-size: 36px;
+  }
+
+  &__overview {
+    color: $product-overview-color;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    max-height: 190px;
+    overflow-y: auto;
+  }
+  &__price {
+    font-size: 34px;
+  }
+
+  &__button {
+    background: $button-bg-secondary;
+    font-size: 20px;
+    color: $primary-color;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    border-radius: 5px;
+  }
+}

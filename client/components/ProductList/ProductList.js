@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
+import Link from 'next/link';
 
 import Pagination from '../Pagination/Pagination';
 
@@ -33,7 +34,9 @@ const ProductList = props => {
                           alt={element.original_title}
                         />
                         <div className="products__image-overlay">
-                          <button className="products__button">Zobacz</button>
+                          <Link href={`/product?product_id=${element.id}`}>
+                            <button className="products__button">Zobacz</button>
+                          </Link>
                         </div>
                       </div>
                     </Col>

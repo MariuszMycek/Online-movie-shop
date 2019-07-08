@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Link from 'next/link';
 
-import * as sortActions from '../ProductList/ProductListActions';
-import * as sortTypeActions from '../SortMenu/SortMenuActions';
+import * as sortActions from '../../redux/productActions';
+import * as sortTypeActions from '../../redux/auxiliaryActions';
 
 import './SortMenu.scss';
 

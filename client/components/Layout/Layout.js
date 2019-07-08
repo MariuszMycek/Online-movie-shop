@@ -1,9 +1,11 @@
 import React from 'react';
 import './Layout.scss';
+import dynamic from 'next/dynamic';
 
 import Head from '../Head';
-import Header from '../Header/Header';
 import Footer from '../Footer/Footter';
+
+const Header = dynamic(import('../Header/Header'), { ssr: false });
 
 const Layout = ({ children }) => (
   <div>

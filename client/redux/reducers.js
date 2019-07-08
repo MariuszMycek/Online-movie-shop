@@ -4,8 +4,8 @@
 import { combineReducers } from 'redux';
 
 // Import Reducers
-import movies from '../components/ProductList/ProductListReducer';
-import sortType from '../components/SortMenu/SortMenuReducer';
+import movies from './productReducer';
+import sortType from './auxiliaryReducer';
 
 // Combine all reducers into one root reducer
 export default combineReducers({

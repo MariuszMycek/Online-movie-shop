@@ -8,50 +8,53 @@ import { connect } from 'react-redux';
 
 const Pagination = props => {
   const styleClass = 'pagination__list-item';
-  const active = props.activePage;
+  const activePage = props.activePage;
   const items = [];
   const pagesCount = Math.ceil(props.productCount / 6);
   const { sortType } = props;
 
-  const firstPageNumber = active => {
-    if (active <= 3) {
+  const firstPageNumber = activePage => {
+    if (activePage <= 3) {
       return 1;
     }
-    if (active === pagesCount) {
-      return active - 4;
+    if (activePage === pagesCount) {
+      return activePage - 4;
     }
-    if (pagesCount - active < 2) {
+    if (pagesCount - activePage < 2) {
       return pagesCount - 4;
     }
-    return active - 2;
+    return activePage - 2;
   };
 
-  const lastPageNumber = active => {
-    if (active <= 3) {
+  const lastPageNumber = activePage => {
+    if (activePage <= 3) {
       return 5;
     }
-    if (active === pagesCount) {
-      return active;
+    if (activePage === pagesCount) {
+      return activePage;
     }
-    if (pagesCount - active < 2) {
+    if (pagesCount - activePage < 2) {
       return pagesCount;
     }
-    return active + 2;
+    return activePage + 2;
   };
 
   for (
-    let number = firstPageNumber(active);
-    number <= lastPageNumber(active);
+    let number = firstPageNumber(activePage);
+    number <= lastPageNumber(activePage);
     number++
   ) {
     items.push(
       <Link href={`/?sort_by=${sortType}&page=${number}`} key={number}>
         <li
           className={
-            number === active
+            number === activePage
               ? `${styleClass} ${styleClass}--active`
               : styleClass
           }
+          onClick={e => {
+            number === activePage ? e.preventDefault() : null;
+          }}
         >
           {number}
         </li>
@@ -62,14 +65,14 @@ const Pagination = props => {
   return (
     <div className="pagination">
       <ul className="pagination__list">
-        {active !== 1 ? (
+        {activePage !== 1 ? (
           <div className="pagination__icon-wrapper">
             <Link href={`/?sort_by=${sortType}&page=1`}>
               <li className="pagination__list-item">
                 <DoubleLeft className="pagination__icon pagination__icon--double-arrow" />
               </li>
             </Link>
-            <Link href={`/?sort_by=${sortType}&page=${active - 1}`}>
+            <Link href={`/?sort_by=${sortType}&page=${activePage - 1}`}>
               <li className="pagination__list-item">
                 <ArrowLeft className="pagination__icon" />
               </li>
@@ -79,9 +82,9 @@ const Pagination = props => {
 
         {items}
 
-        {active !== pagesCount ? (
+        {activePage !== pagesCount ? (
           <div className="pagination__icon-wrapper">
-            <Link href={`/?sort_by=${sortType}&page=${active + 1}`}>
+            <Link href={`/?sort_by=${sortType}&page=${activePage + 1}`}>
               <li className="pagination__list-item">
                 <ArrowRight className="pagination__icon" />
               </li>

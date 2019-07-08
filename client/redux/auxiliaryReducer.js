@@ -1,4 +1,4 @@
-import { SET_SORT_TYPE } from './SortMenuActions';
+import { SET_SORT_TYPE } from './auxiliaryActions';
 
 // Initial State
 const initialState = '';

@@ -4,7 +4,7 @@ import {
   SORT_ALPHABETICALLY_REVERSED,
   SORT_BY_PRICE_ASCENDING,
   SORT_BY_PRICE_DESCENDING,
-} from './ProductListActions';
+} from './productActions';
 
 // universal sorting function
 /* array - array to sort (f.e. state), 
@@ -72,7 +72,6 @@ export default function products(state = initialState, action) {
 
       return [...sortedMovies];
     }
-
     default:
       return state;
   }

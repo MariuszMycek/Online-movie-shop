@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'next/router';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,12 +9,9 @@ import SortMenu from '../client/components/SortMenu/SortMenu';
 import ProductList from '../client/components/ProductList/ProductList';
 
 import data from '../data.json';
-import {
-  getProducts,
-  sortOnLoad,
-} from '../client/components/ProductList/ProductListActions';
 
-import { setSortType } from '../client/components/SortMenu/SortMenuActions';
+import { getProducts, sortOnLoad } from '../client/redux/productActions';
+import { setSortType } from '../client/redux/auxiliaryActions';
 
 import 'bootstrap-scss/bootstrap-grid.scss';
 
@@ -49,4 +45,4 @@ Home.getInitialProps = async ({ store, query }) => {
   return {};
 };
 // export default connect(state => state)(Home);
-export default withRouter(Home);
+export default Home;
