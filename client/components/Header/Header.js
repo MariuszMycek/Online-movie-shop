@@ -3,6 +3,7 @@ import Basket from '../icons/basket.svg';
 import ActiveLink from '../ActiveLink';
 import Link from 'next/link';
 import debounce from 'lodash/debounce';
+import { connect } from 'react-redux';
 
 import './Header.scss';
 
@@ -15,6 +16,11 @@ class Header extends Component {
     };
   }
 
+  // Add debounce for better performance
+  debounced = debounce(() => this.handleScroll(), 50, {
+    maxWait: 500,
+  });
+
   // Adds an event listener when the component is mount.
   componentDidMount() {
     window.addEventListener('scroll', this.debounced);
@@ -25,11 +31,6 @@ class Header extends Component {
   componentWillUnmount() {
     window.removeEventListener('scroll', this.debounced);
   }
-
-  // Add debounce for better performance
-  debounced = debounce(() => this.handleScroll(), 50, {
-    maxWait: 500,
-  });
 
   handleScroll = () => {
     const currentScrollPosition = window.pageYOffset;
@@ -42,7 +43,9 @@ class Header extends Component {
   };
 
   render() {
-    const headerClass = this.state.headerShadow ? 'header header--with-shadow' : 'header';
+    const headerClass = this.state.headerShadow
+      ? 'header header--with-shadow'
+      : 'header';
     return (
       <header className={headerClass}>
         <div className="header__container container">
@@ -76,6 +79,11 @@ class Header extends Component {
               <li className="navbar__list-item">
                 <ActiveLink href="/cart" className="navbar__link">
                   <Basket className="navbar__basket-icon" />
+                  {this.props.amountOfitemsInCart > 0 ? (
+                    <span className="navbar__cart-items-amount">
+                      ({this.props.amountOfitemsInCart})
+                    </span>
+                  ) : null}
                 </ActiveLink>
               </li>
             </ul>
@@ -86,8 +94,8 @@ class Header extends Component {
   }
 }
 
-// const Header = () => (
+const mapStateToProps = state => ({
+  amountOfitemsInCart: state.cart.length,
+});
 
-// );
-
-export default Header;
+export default connect(mapStateToProps)(Header);

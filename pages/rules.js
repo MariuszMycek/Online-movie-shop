@@ -5,7 +5,9 @@ import Layout from '../client/components/Layout/Layout';
 
 const Rules = () => (
   <Layout>
-    <main> </main>
+    <main>
+      <p>Rules works!</p>
+    </main>
   </Layout>
 );
 

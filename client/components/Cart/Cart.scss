@@ -1,0 +1,17 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.cart {
+  &__empty-cart-info {
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  &__content {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    background: $primary-color;
+    border-radius: 3px;
+    padding: 20px 30px;
+  }
+}

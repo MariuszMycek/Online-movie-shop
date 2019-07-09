@@ -1,9 +1,9 @@
 @import '../../styles/variables';
 
 .go-back {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  
+
   margin-bottom: 10px;
   cursor: pointer;
   &__icon {

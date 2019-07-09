@@ -5,7 +5,9 @@ import Layout from '../client/components/Layout/Layout';
 
 const Contact = () => (
   <Layout>
-    <main> </main>
+    <main>
+      <p>Contact works!</p>
+    </main>
   </Layout>
 );
 

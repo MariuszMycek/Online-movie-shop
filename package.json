@@ -5,6 +5,7 @@
     "build": "next build",
     "dev_own": "node server/index.js -p $PORT",
     "heroku-postbuild": "next build",
+    "start_next": "next start",
     "start": "NODE_ENV=production node server/index.js -p $PORT",
     "start_windows": "cross-env NODE_ENV=production node server/index.js -p $PORT",
     "lint": "eslint components server"

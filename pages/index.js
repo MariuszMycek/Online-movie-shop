@@ -1,10 +1,10 @@
 import React from 'react';
 
+import Layout from '../client/components/Layout/Layout';
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 
-import Layout from '../client/components/Layout/Layout';
 import SortMenu from '../client/components/SortMenu/SortMenu';
 import ProductList from '../client/components/ProductList/ProductList';
 
@@ -13,7 +13,6 @@ import data from '../data.json';
 import { getProducts, sortOnLoad } from '../client/redux/productActions';
 import { setSortType } from '../client/redux/auxiliaryActions';
 
-import 'bootstrap-scss/bootstrap-grid.scss';
 
 const Home = () => (
   <Layout>

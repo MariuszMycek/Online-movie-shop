@@ -1,11 +1,10 @@
 import React from 'react';
 
-import Layout from '../client/components/Layout/Layout';
-
 import data from '../data.json';
 import { getProducts } from '../client/redux/productActions';
 
 import ProductCard from '../client/components/ProductCard/ProductCard';
+import Layout from '../client/components/Layout/Layout';
 
 const Product = () => {
   return (

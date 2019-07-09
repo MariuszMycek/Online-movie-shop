@@ -1,20 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
-import Link from 'next/link';
+import { bindActionCreators } from 'redux';
+import { addToCart } from '../../redux/cartActions';
 
+import './ProductCard.scss';
+import 'bootstrap-scss/bootstrap-grid.scss';
+import '../../styles/styles.scss';
+
+import Container from 'react-bootstrap/Container';
+import GoBackButon from '../GoBackButton/GoBackButton';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 
-import GoBackButon from '../GoBackButton/GoBackButton';
-
-import 'bootstrap-scss/bootstrap-grid.scss';
-import './ProductCard.scss';
-
-const ProductCard = ({ movies, router }) => {
+const ProductCard = ({ movies, router, addToCart, cart }) => {
   const productId = +router.query.product_id;
   const product = movies.find(movie => movie.id === productId);
+  const productInCart = cart.find(
+    cartElement => productId === cartElement.product.id
+  );
+
   return (
     <Container>
       <GoBackButon />
@@ -49,7 +54,23 @@ const ProductCard = ({ movies, router }) => {
                 <p className="product-card__overview">{product.overview}</p>
                 <p className="product-card__price">Cena: {product.price} zł</p>
               </div>
-              <button className="product-card__button">Dodaj do koszyka</button>
+              <button
+                className="product-card__button"
+                onClick={
+                  productInCart
+                    ? null
+                    : () => {
+                        addToCart(product);
+                      }
+                }
+              >
+                Dodaj do koszyka
+              </button>
+              {productInCart ? (
+                <span className="product-card__cart-info">
+                  Film został dodany do koszyka
+                </span>
+              ) : null}
             </div>
           </Col>
         </Row>
@@ -60,6 +81,15 @@ const ProductCard = ({ movies, router }) => {
 
 const mapStateToProps = state => ({
   movies: state.movies,
+  cart: state.cart,
 });
 
-export default withRouter(connect(mapStateToProps)(ProductCard));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ addToCart }, dispatch);
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ProductCard)
+);

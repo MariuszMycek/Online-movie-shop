@@ -47,7 +47,7 @@
       text-decoration: none;
       padding: 0 20px;
       height: 100%;
-      @include transition(color);
+      @include transition();
       display: flex;
       align-items: center;
       margin: 0 5px;
@@ -58,6 +58,9 @@
         .navbar__basket-icon {
           fill: $icon-hover-color;
         }
+        // .navbar__cart-items-amount {
+        //   color: $link-hover-color;
+        // }
       }
     }
 
@@ -74,7 +77,12 @@
       fill: $icon-default-color;
       width: 28px;
       height: 28px;
-      @include transition(color);
+      @include transition($delay: 0.2s);
+    }
+    &__cart-items-amount {
+      font-size: 14px;
+      position: relative;
+      top: 5px;
     }
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Layout.scss';
+
 import dynamic from 'next/dynamic';
 
 import Head from '../Head';

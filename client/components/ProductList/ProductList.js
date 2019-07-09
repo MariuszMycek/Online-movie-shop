@@ -8,7 +8,6 @@ import Pagination from '../Pagination/Pagination';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import 'bootstrap-scss/bootstrap-grid.scss';
 import './ProductList.scss';
 
 const ProductList = props => {

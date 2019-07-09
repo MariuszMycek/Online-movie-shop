@@ -5,7 +5,9 @@ import Layout from '../client/components/Layout/Layout';
 
 const Faq = () => (
   <Layout>
-    <main> </main>
+    <main>
+      <p>FAQ works</p>
+    </main>
   </Layout>
 );
 

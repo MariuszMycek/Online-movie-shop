@@ -1,10 +1,11 @@
-import './Pagination.scss';
 import ArrowRight from '../Icons/arrow-right.svg';
 import ArrowLeft from '../Icons/arrow-left.svg';
 import DoubleLeft from '../Icons/double-left.svg';
 import DoubleRight from '../Icons/double-right.svg';
 import Link from 'next/link';
 import { connect } from 'react-redux';
+
+import './Pagination.scss';
 
 const Pagination = props => {
   const styleClass = 'pagination__list-item';
