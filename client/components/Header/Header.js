@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Basket from '../Icons/asket.svg';
+import Basket from '../Icons/basket.svg';
 import ActiveLink from '../ActiveLink';
 import Link from 'next/link';
 import debounce from 'lodash/debounce';
