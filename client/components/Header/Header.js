@@ -5,6 +5,8 @@ import Link from 'next/link';
 import debounce from 'lodash/debounce';
 import { connect } from 'react-redux';
 
+import Container from 'react-bootstrap/Container';
+
 import './Header.scss';
 
 class Header extends Component {
@@ -48,7 +50,7 @@ class Header extends Component {
       : 'header';
     return (
       <header className={headerClass}>
-        <div className="header__container container">
+        <Container className="header__container">
           <Link href="/">
             <div className="header__logo">
               <img src="/static/assets/images/logo.png" alt="logo" />
@@ -88,14 +90,14 @@ class Header extends Component {
               </li>
             </ul>
           </nav>
-        </div>
+        </Container>
       </header>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  amountOfitemsInCart: state.cart.length,
+  amountOfitemsInCart: state.cart.products.length,
 });
 
 export default connect(mapStateToProps)(Header);

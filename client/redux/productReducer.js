@@ -21,15 +21,17 @@ function sortArray(array, sortingElement, sortingType) {
     }
     return;
   };
+
   const sortedElements = elementsToSort.sort(sortMethod());
-  const sortedMovies = sortedElements.map(element => {
-    let movieAfterSort;
+
+  const sortedMovies = [];
+
+  sortedElements.forEach(element => {
     movies.forEach(movie => {
-      if (element === movie[sortingElement]) {
-        movieAfterSort = movie;
+      if (element === movie[sortingElement] && !sortedMovies.includes(movie)) {
+        sortedMovies.push(movie);
       }
     });
-    return movieAfterSort;
   });
 
   if (sortingType === 'descending') {

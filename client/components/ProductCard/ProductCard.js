@@ -5,18 +5,16 @@ import { bindActionCreators } from 'redux';
 import { addToCart } from '../../redux/cartActions';
 
 import './ProductCard.scss';
-import 'bootstrap-scss/bootstrap-grid.scss';
-import '../../styles/styles.scss';
 
 import Container from 'react-bootstrap/Container';
 import GoBackButon from '../GoBackButton/GoBackButton';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const ProductCard = ({ movies, router, addToCart, cart }) => {
+const ProductCard = ({ movies, router, addToCart, products }) => {
   const productId = +router.query.product_id;
   const product = movies.find(movie => movie.id === productId);
-  const productInCart = cart.find(
+  const productInCart = products.find(
     cartElement => productId === cartElement.product.id
   );
 
@@ -81,7 +79,7 @@ const ProductCard = ({ movies, router, addToCart, cart }) => {
 
 const mapStateToProps = state => ({
   movies: state.movies,
-  cart: state.cart,
+  products: state.cart.products,
 });
 
 const mapDispatchToProps = dispatch =>
