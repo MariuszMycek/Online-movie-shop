@@ -16,6 +16,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
 import './Cart.scss';
 
 class Cart extends Component {
@@ -64,28 +66,6 @@ class Cart extends Component {
     Router.push('/');
   };
 
-  renderDiscountInput = () => {
-    const isDiscount = this.props.discount !== 0;
-
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          className="cart__discount-input"
-          type="text"
-          placeholder={
-            isDiscount
-              ? 'kod rabatowy już został wykorzystany'
-              : 'wprowadź kod rabatowy'
-          }
-          value={this.state.inputValue}
-          onChange={this.handleChange}
-          autoFocus={true}
-          disabled={isDiscount}
-        />
-      </form>
-    );
-  };
-
   render() {
     const {
       products,
@@ -95,17 +75,7 @@ class Cart extends Component {
       discount,
     } = this.props;
 
-    const cartItems = products.map((item, i) => {
-      return (
-        <CartItem
-          key={i}
-          item={item}
-          removeFromCart={removeFromCart}
-          increaseTheAmount={increaseTheAmount}
-          decreaseTheAmount={decreaseTheAmount}
-        />
-      );
-    });
+    const isDiscount = this.props.discount !== 0;
 
     const productTotalPriceArray = products.map(
       item => item.amount * item.product.price
@@ -120,28 +90,52 @@ class Cart extends Component {
       (totalPrice * discount) / 100
     ).toFixed(2);
 
-    const checkoutModal = (
-      <CheckoutModal
-        {...this.props}
-        totalPriceAfterDiscount={totalPriceAfterDiscount}
-        closeCheckoutModal={this.closeCheckoutModal}
-        handlePayment={this.handlePayment}
-      />
-    );
     return (
       <Container>
         <GoBackButon />
+
         <div className="cart">
-          {!products.length ? (
-            <p className="cart__empty-cart-info">Twój koszyk jest pusty</p>
-          ) : (
-            <Row>
-              <Col xs="7">
-                <div className="cart__content">{cartItems}</div>
-              </Col>
-              <Col xs="5">
-                <div className="cart__checkout">
-                  <h4 className="cart__checkout-header">Podsumowanie</h4>
+          <Row>
+            <Col xs="7">
+              <CSSTransition
+                in={products.length === 0}
+                timeout={1000}
+                classNames="fade-and-resize-with-delay"
+                unmountOnExit
+              >
+                <p className="cart__empty-cart-info">Twój koszyk jest pusty</p>
+              </CSSTransition>
+
+              <CSSTransition
+                in={products.length > 0}
+                timeout={500}
+                classNames="fade"
+                unmountOnExit
+              >
+                <div className="cart__content">
+                  <TransitionGroup component={null}>
+                    {products.map(item => (
+                      <CSSTransition
+                        key={item.product.id}
+                        timeout={500}
+                        classNames="fade"
+                      >
+                        <CartItem
+                          item={item}
+                          removeFromCart={removeFromCart}
+                          increaseTheAmount={increaseTheAmount}
+                          decreaseTheAmount={decreaseTheAmount}
+                        />
+                      </CSSTransition>
+                    ))}
+                  </TransitionGroup>
+                </div>
+              </CSSTransition>
+            </Col>
+            <Col xs="5">
+              <div className="cart__checkout">
+                <h4 className="cart__checkout-header">Podsumowanie</h4>
+                <div className="cart__order-value-details">
                   <p className="cart__checkout-paragraph">
                     Wartość zamówienia: <span>{totalPrice} zł</span>
                   </p>
@@ -151,30 +145,62 @@ class Cart extends Component {
                   <p className="cart__checkout-paragraph">
                     Razem do zapłaty: <span>{totalPriceAfterDiscount} zł</span>
                   </p>
-                  <div className="cart__checkout-button-wrapper">
-                    {this.state.inputVisible
-                      ? this.renderDiscountInput()
-                      : null}
-                    <button
-                      className="cart__checkout-button cart__checkout-button--discount"
-                      onClick={this.handleToggleInput}
-                    >
-                      Kod rabatowy
-                    </button>
-                    <button
-                      className="cart__checkout-button cart__checkout-button--submit"
-                      onClick={this.showCheckoutModal}
-                    >
-                      Złóż zamówienie
-                    </button>
-                  </div>
                 </div>
-              </Col>
-            </Row>
-          )}
+                <div className="cart__checkout-button-wrapper">
+                  <CSSTransition
+                    in={this.state.inputVisible}
+                    timeout={300}
+                    classNames="fade-and-resize"
+                    unmountOnExit
+                  >
+                    <form onSubmit={this.handleSubmit}>
+                      <input
+                        className="cart__discount-input"
+                        type="text"
+                        placeholder={
+                          isDiscount
+                            ? 'kod rabatowy już został wykorzystany'
+                            : 'wprowadź kod rabatowy'
+                        }
+                        value={this.state.inputValue}
+                        onChange={this.handleChange}
+                        autoFocus={true}
+                        disabled={isDiscount || products.length === 0}
+                      />
+                    </form>
+                  </CSSTransition>
+                  <button
+                    className="cart__checkout-button cart__checkout-button--discount"
+                    onClick={this.handleToggleInput}
+                    disabled={products.length === 0}
+                  >
+                    Kod rabatowy
+                  </button>
+                  <button
+                    className="cart__checkout-button cart__checkout-button--submit"
+                    onClick={this.showCheckoutModal}
+                    disabled={products.length === 0}
+                  >
+                    Złóż zamówienie
+                  </button>
+                </div>
+              </div>
+            </Col>
+          </Row>
         </div>
-        <Row />
-        {this.state.checkoutModalVisible ? checkoutModal : null}
+        <CSSTransition
+          in={this.state.checkoutModalVisible}
+          timeout={300}
+          classNames="fade-and-resize"
+          unmountOnExit
+        >
+          <CheckoutModal
+            {...this.props}
+            totalPriceAfterDiscount={totalPriceAfterDiscount}
+            closeCheckoutModal={this.closeCheckoutModal}
+            handlePayment={this.handlePayment}
+          />
+        </CSSTransition>
       </Container>
     );
   }

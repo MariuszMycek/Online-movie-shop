@@ -11,6 +11,7 @@
     "lint": "eslint components server"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0-0",
     "@babel/register": "^7.4.4",
     "@zeit/next-sass": "^1.0.1",
     "babel-core": "^6.26.3",
@@ -25,6 +26,7 @@
     "mongoose": "5.6.1",
     "next": "^8.1.0",
     "next-redux-wrapper": "^3.0.0-alpha.3",
+    "nextjs-morph-page": "^2.0.3",
     "node-sass": "^4.12.0",
     "prop-types": "^15.6.2",
     "react": "^16.8.6",
@@ -32,10 +34,12 @@
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "react-router": "^3.2.1",
+    "react-transition-group": "^4.2.1",
     "redux": "^3.5.2",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.1.0",
-    "remote-redux-devtools": "^0.5.16"
+    "remote-redux-devtools": "^0.5.16",
+    "webpack": "^4.0.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^4.3.0",

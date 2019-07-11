@@ -2,13 +2,16 @@
 @import '../../styles/mixins';
 
 .cart {
+  position: relative;
+
   &__empty-cart-info {
+    position: absolute;
+    width: 100%;
     margin-top: 50px;
     text-align: center;
   }
 
   &__content {
-    margin-top: 20px;
     margin-bottom: 50px;
     background: $primary-color;
     border-radius: 3px;
@@ -16,7 +19,6 @@
   }
 
   &__checkout {
-    margin-top: 20px;
     background: $primary-color;
     border-radius: 3px;
     padding: 20px 45px;
@@ -28,9 +30,17 @@
     border-bottom: 1px solid $border-grey;
   }
 
+  &__order-value-details {
+    width: 70%;
+  }
+
   &__checkout-paragraph {
+    display: flex;
+    justify-content: space-between;
+
     span {
       font-weight: bold;
+      text-align: right;
     }
   }
 
@@ -43,11 +53,12 @@
   &__discount-input {
     font-size: 16px;
     padding: 10px 14px;
-    border-radius: 3px;
+    border-radius: 5px;
     outline: none;
     width: 100%;
     text-align: center;
     border: 1px solid $button-border-3-color;
+
     &:focus {
       box-shadow: 0 0 2px 2px $input-focus-shadow;
     }
@@ -57,19 +68,28 @@
     font-size: 16px;
     padding: 10px 15px;
     margin: 5px 0;
-    border-radius: 3px;
+    border-radius: 5px;
     border: 1px solid $button-border-3-color;
     cursor: pointer;
 
     &--submit {
       background: $button-bg-secondary;
       color: $button-font-color;
+
+      &:disabled {
+        background: lighten($color: $button-bg-secondary, $amount: 30);
+      }
     }
 
     &--discount {
       margin-bottom: 15px;
       background: $button-bg-optional;
       color: $button-font-color-secondary;
+
+      &:disabled {
+        background: lighten($color: $button-bg-optional, $amount: 30);
+        color: lighten($color: $button-font-color-secondary, $amount: 30);
+      }
     }
   }
 }

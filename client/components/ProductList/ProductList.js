@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
 import Link from 'next/link';
+import { bindActionCreators } from 'redux';
+import { addToCart } from '../../redux/cartActions';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import Pagination from '../Pagination/Pagination';
 
@@ -10,61 +13,91 @@ import Col from 'react-bootstrap/Col';
 
 import './ProductList.scss';
 
-const ProductList = props => {
-  const { movies } = props;
-  const activePage = Number(props.router.query.page) || 1;
+const ProductList = ({ movies, addToCart, router, products }) => {
+  const activePage = +router.query.page || 1;
   const firstIndexToRender = activePage * 6 - 6;
   const lastIndexToRender = activePage * 6 - 1;
   return (
     <div className="products">
       <Row className="products__product-list">
         {movies.map((element, i) => {
+          const productInCart = products.find(
+            cartElement => element.id === cartElement.product.id
+          );
           if (i >= firstIndexToRender && i <= lastIndexToRender)
             return (
               <Col xl="6" className="products__list-item" key={i}>
-                <div className="products__product-card-wrapper">
-                  <Row>
-                    <Col xl="6">
-                      <div className="products__image">
-                        <img
-                          src={`https://image.tmdb.org/t/p/w500${
-                            element.poster_path
-                          }`}
-                          alt={element.original_title}
-                        />
-                        <div className="products__image-overlay">
-                          <Link href={`/product?product_id=${element.id}`}>
-                            <button className="products__button">Zobacz</button>
-                          </Link>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col xl="6">
-                      <div className="products__product-decription-wrapper">
-                        <div className="products__product-description">
-                          <h4>{element.original_title}</h4>
-                          <p className="products__desc-element">
-                            Gatunek:{' '}
-                            {Array.isArray(element.genres_data)
-                              ? element.genres_data.join(', ')
-                              : element.genres_data}
-                          </p>
-                          <p className="products__desc-element">
-                            Rok wydania: {element.release_year}
-                          </p>
-                          <p className="products__desc-element">
-                            Czas trwania: {element.time_str}
-                          </p>
-                          <p>Cena: {element.price} zł</p>
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                </div>
+                <TransitionGroup component={null}>
+                  <CSSTransition
+                    key={element.id}
+                    timeout={500}
+                    classNames="fade"
+                    appear={true}
+                  >
+                    <div className="products__product-card-wrapper">
+                      <Row>
+                        <Col xl="6">
+                          <div className="products__image">
+                            <img
+                              src={`https://image.tmdb.org/t/p/w500${
+                                element.poster_path
+                              }`}
+                              alt={element.original_title}
+                            />
+                            <Link href={`/product?product_id=${element.id}`}>
+                              <div className="products__image-overlay">
+                                <div className="products__overlay-text-box">
+                                  Szczegóły
+                                </div>
+                              </div>
+                            </Link>
+                          </div>
+                        </Col>
+                        <Col xl="6">
+                          <div className="products__product-decription-wrapper">
+                            <div className="products__product-description">
+                              <h4>{element.original_title}</h4>
+                              <p className="products__desc-element">
+                                Gatunek:{' '}
+                                {Array.isArray(element.genres_data)
+                                  ? element.genres_data.join(', ')
+                                  : element.genres_data}
+                              </p>
+                              <p className="products__desc-element">
+                                Rok wydania: {element.release_year}
+                              </p>
+                              <p className="products__desc-element">
+                                Czas trwania: {element.time_str}
+                              </p>
+                            </div>
+                            <div className="products__action">
+                              <p className="products__price">
+                                {element.price} zł
+                              </p>
+                              <button
+                                className="products__add-to-cart-button"
+                                disabled={productInCart}
+                                onClick={() => addToCart(element)}
+                                title={
+                                  productInCart
+                                    ? 'Film już jest w koszyku!'
+                                    : null
+                                }
+                              >
+                                Do koszyka
+                              </button>
+                            </div>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                  </CSSTransition>
+                </TransitionGroup>
               </Col>
             );
         })}
       </Row>
+
       <Pagination productCount={movies.length} activePage={activePage} />
     </div>
   );
@@ -72,6 +105,15 @@ const ProductList = props => {
 
 const mapStateToProps = state => ({
   movies: state.movies,
+  products: state.cart.products,
 });
 
-export default withRouter(connect(mapStateToProps)(ProductList));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ addToCart }, dispatch);
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ProductList)
+);

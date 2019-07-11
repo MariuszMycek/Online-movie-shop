@@ -12,9 +12,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   &__header {
     border-bottom: 1px solid $border-grey;
   }
+
   &__content {
     background: $primary-color;
     color: $cart-font-color;
@@ -22,6 +24,7 @@
     padding: 30px;
     border-radius: 5px;
   }
+
   &__close-button {
     position: absolute;
     top: -9px;
@@ -35,20 +38,23 @@
     border-radius: 50%;
     @include transition();
     cursor: pointer;
+
     &:hover {
       color: $cart-font-color;
     }
   }
+
   &__text {
     span {
       font-weight: bold;
     }
   }
+
   &__pay-button {
     font-size: 16px;
     padding: 10px 15px;
     margin: 5px 0;
-    border-radius: 3px;
+    border-radius: 5px;
     border: 1px solid $button-border-3-color;
     cursor: pointer;
     width: 100%;

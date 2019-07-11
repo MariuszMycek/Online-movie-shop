@@ -4,12 +4,13 @@ import { withRouter } from 'next/router';
 import { bindActionCreators } from 'redux';
 import { addToCart } from '../../redux/cartActions';
 
-import './ProductCard.scss';
+import GoBackButon from '../GoBackButton/GoBackButton';
 
 import Container from 'react-bootstrap/Container';
-import GoBackButon from '../GoBackButton/GoBackButton';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
+import './ProductCard.scss';
 
 const ProductCard = ({ movies, router, addToCart, products }) => {
   const productId = +router.query.product_id;
@@ -54,13 +55,8 @@ const ProductCard = ({ movies, router, addToCart, products }) => {
               </div>
               <button
                 className="product-card__button"
-                onClick={
-                  productInCart
-                    ? null
-                    : () => {
-                        addToCart(product);
-                      }
-                }
+                disabled={productInCart}
+                onClick={() => addToCart(product)}
               >
                 Dodaj do koszyka
               </button>

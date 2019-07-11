@@ -1,25 +1,27 @@
-// colors
+// bg colors
 $body-bg: #212329;
 $nav-bg: #04070b;
 $footer-bg: #04070b;
 $product-card-bg: #04070b;
-$modal-bg: rgba(0,0,0,0.5);
+$modal-bg: rgba(0, 0, 0, 0.5);
 
-$primary-color: #fff;
-
+// border colors
 $border-red: #df2021;
 $border-grey: #c1c1c1;
 
+// link colors
 $link-color: #fff;
 $link-hover-bg: #283946;
 $link-hover-color: #df2021;
 $link-active-bg: #212329;
 $link-active-color: #df2021;
 
+// icon Colors
 $icon-default-color: #fff;
 $icon-hover-color: #df2021;
 $icon-active-color: #df2021;
 
+// button colors
 $button-bg: #212329;
 $button-bg-secondary: #df2021;
 $button-bg-optional: #f5f5f5;
@@ -30,11 +32,14 @@ $button-border-color: #df2021;
 $button-border-2-color: #212329;
 $button-border-3-color: #d9d9d9;
 
+// input shadow colors
 $input-focus-shadow: #42afe7;
 $input-focus-red-shadow: #df2021;
 
-$product-overview-color: #6e6d6d;
+// font colors
+$primary-color: #fff;
 $cart-font-color: #212329;
+$product-overview-color: #6e6d6d;
 
 // fonts
 $primary-font: 'Open Sans', sans-serif;

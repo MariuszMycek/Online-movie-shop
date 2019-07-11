@@ -1,3 +1,4 @@
+import React from 'react';
 import ArrowRight from '../Icons/arrow-right.svg';
 import ArrowLeft from '../Icons/arrow-left.svg';
 import DoubleLeft from '../Icons/double-left.svg';

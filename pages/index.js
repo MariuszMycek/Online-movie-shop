@@ -1,4 +1,5 @@
 import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 import Layout from '../client/components/Layout/Layout';
 import Container from 'react-bootstrap/Container';
@@ -13,35 +14,38 @@ import data from '../data.json';
 import { getProducts, sortOnLoad } from '../client/redux/productActions';
 import { setSortType } from '../client/redux/auxiliaryActions';
 
-
 const Home = () => (
   <Layout>
-    <main>
-      <Container>
-        <Row>
-          <Col xs="3">
-            <aside>
-              <SortMenu />
-            </aside>
-          </Col>
-          <Col xs="9">
-            <section>
-              <ProductList />
-            </section>
-          </Col>
-        </Row>
-      </Container>
-    </main>
+    <CSSTransition in={true} timeout={500} classNames="fade" appear>
+      <main>
+        <Container>
+          <Row>
+            <Col xs="3">
+              <aside>
+                <SortMenu />
+              </aside>
+            </Col>
+            <Col xs="9">
+              <section>
+                <ProductList />
+              </section>
+            </Col>
+          </Row>
+        </Container>
+      </main>
+    </CSSTransition>
   </Layout>
 );
 
 Home.getInitialProps = async ({ store, query }) => {
-  await store.dispatch(getProducts(data));
+  if (!store.getState().movies.length) {
+    await store.dispatch(getProducts(data));
+  }
   const { sort_by } = query;
   store.dispatch(sortOnLoad(sort_by));
   store.dispatch(setSortType(sort_by));
 
   return {};
 };
-// export default connect(state => state)(Home);
+
 export default Home;

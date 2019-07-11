@@ -35,6 +35,7 @@
     max-height: 190px;
     overflow-y: auto;
   }
+
   &__price {
     font-size: 34px;
   }
@@ -47,8 +48,18 @@
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &:disabled {
+      background: lighten($color: $button-bg-secondary, $amount: 30);
+      transform: scale(1);
+    }
   }
-  &__cart-info{
+
+  &__cart-info {
     margin-left: 30px;
   }
 }
