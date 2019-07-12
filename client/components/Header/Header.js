@@ -6,6 +6,7 @@ import debounce from 'lodash/debounce';
 import { connect } from 'react-redux';
 
 import Container from 'react-bootstrap/Container';
+import SearchBox from '../SearchBox/SearchBox';
 
 import './Header.scss';
 
@@ -58,6 +59,9 @@ class Header extends Component {
           </Link>
           <nav className="header__navbar navbar">
             <ul className="navbar__list">
+              <li className="navbar__list-item">
+                <SearchBox />
+              </li>
               <li className="navbar__list-item">
                 <ActiveLink href="/" className="navbar__link">
                   HOME

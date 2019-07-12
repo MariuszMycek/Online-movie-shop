@@ -4,10 +4,12 @@ $nav-bg: #04070b;
 $footer-bg: #04070b;
 $product-card-bg: #04070b;
 $modal-bg: rgba(0, 0, 0, 0.5);
+$product-card-text-box-bg: rgba(33, 35, 41, 0.7);
 
 // border colors
 $border-red: #df2021;
 $border-grey: #c1c1c1;
+$border-white: #fff;
 
 // link colors
 $link-color: #fff;
@@ -38,8 +40,10 @@ $input-focus-red-shadow: #df2021;
 
 // font colors
 $primary-color: #fff;
+$secondary-color: #969696;
 $cart-font-color: #212329;
-$product-overview-color: #6e6d6d;
+$product-overview-color: #969696;
+$placeholder-color: #6e6d6d;
 
 // fonts
 $primary-font: 'Open Sans', sans-serif;

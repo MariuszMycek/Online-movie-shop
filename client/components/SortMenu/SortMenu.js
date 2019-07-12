@@ -65,7 +65,7 @@ const SortMenu = props => {
 
 const mapStateToProps = state => {
   return {
-    sortType: state.sortType,
+    sortType: state.auxiliary.sortType,
   };
 };
 

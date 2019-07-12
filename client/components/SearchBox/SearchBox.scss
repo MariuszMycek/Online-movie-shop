@@ -1,0 +1,49 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.search-box {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-right: 25px;
+  position: relative;
+
+  &__input {
+    padding: 0;
+    height: 36px;
+    width: 36px;
+    border-radius: 18px;
+    border: 2px solid $border-white;
+    background: $nav-bg;
+    outline: none;
+    color: transparent;
+    @include transition();
+
+    &--active {
+      padding-left: 16px;
+      padding-right: 33px;
+      width: 200px;
+      color: $primary-color;
+    }
+  }
+
+  &__button {
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    right: 0;
+    border: none;
+    outline: none;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__icon {
+    fill: $primary-color;
+    width: 18px;
+    height: 18px;
+  }
+}

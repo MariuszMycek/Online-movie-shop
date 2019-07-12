@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
 import Link from 'next/link';
 import { bindActionCreators } from 'redux';
+
 import { addToCart } from '../../redux/cartActions';
+import { resetSearchedPhrase } from '../../redux/auxiliaryActions';
+import { getProducts } from '../../redux/productActions';
+
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import Pagination from '../Pagination/Pagination';
@@ -13,12 +17,45 @@ import Col from 'react-bootstrap/Col';
 
 import './ProductList.scss';
 
-const ProductList = ({ movies, addToCart, router, products }) => {
+
+const ProductList = ({
+  movies,
+  addToCart,
+  router,
+  products,
+  searchedPhrase,
+  resetSearchedPhrase,
+  getProducts,
+}) => {
   const activePage = +router.query.page || 1;
   const firstIndexToRender = activePage * 6 - 6;
   const lastIndexToRender = activePage * 6 - 1;
+
   return (
     <div className="products">
+      {searchedPhrase === '' ? (
+        <div>
+          <p className="products__number-of-films">
+            Filmów w bazie: <span>{movies.length}</span>
+          </p>
+        </div>
+      ) : (
+        <div className="products__search-info">
+          <p className="products_search-result-info">
+            Znaleziono <span>{movies.length}</span> filmów dla frazy{' '}
+            <span>"{searchedPhrase}"</span>
+          </p>
+          <button
+            className="products__reset-search-button"
+            onClick={() => {
+              resetSearchedPhrase();
+              getProducts();
+            }}
+          >
+            Resetuj
+          </button>
+        </div>
+      )}
       <Row className="products__product-list">
         {movies.map((element, i) => {
           const productInCart = products.find(
@@ -106,10 +143,11 @@ const ProductList = ({ movies, addToCart, router, products }) => {
 const mapStateToProps = state => ({
   movies: state.movies,
   products: state.cart.products,
+  searchedPhrase: state.auxiliary.searchedPhrase,
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ addToCart }, dispatch);
+  bindActionCreators({ addToCart, resetSearchedPhrase, getProducts }, dispatch);
 
 export default withRouter(
   connect(

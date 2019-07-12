@@ -1,7 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import data from '../data.json';
 import { getProducts } from '../client/redux/productActions';
 
 import ProductCard from '../client/components/ProductCard/ProductCard';
@@ -19,9 +18,13 @@ const Product = () => {
   );
 };
 
-Product.getInitialProps = async ({ store }) => {
-  if (!store.getState().movies.length) {
-    await store.dispatch(getProducts(data));
+Product.getInitialProps = async ({ store, query }) => {
+  const moviesInStore = store.getState().movies;
+  const isMovieInStore = moviesInStore.find(
+    movie => movie.id === +query.product_id
+  );
+  if (!isMovieInStore) {
+    await store.dispatch(getProducts());
   }
 
   return {};

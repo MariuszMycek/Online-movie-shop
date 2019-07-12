@@ -23,51 +23,57 @@ const ProductCard = ({ movies, router, addToCart, products }) => {
     <Container>
       <GoBackButon />
       <div className="product-card">
-        <Row>
-          <Col xl="5">
-            <div className="product-card__image">
-              <img
-                src={`https://image.tmdb.org/t/p/w500${product.poster_path}`}
-                alt={product.original_title}
-              />
-            </div>
-          </Col>
-          <Col xl="7">
-            <div className="product-card__product-decription-wrapper">
-              <div className="product-card__product-description">
-                <h2 className="product-card__title">
-                  {product.original_title}
-                </h2>
-                <p className="product-card__desc-element">
-                  Gatunek:{' '}
-                  {Array.isArray(product.genres_data)
-                    ? product.genres_data.join(', ')
-                    : product.genres_data}
-                </p>
-                <p className="product-card__desc-element">
-                  Rok wydania: {product.release_year}
-                </p>
-                <p className="product-card__desc-element">
-                  Czas trwania: {product.time_str}
-                </p>
-                <p className="product-card__overview">{product.overview}</p>
-                <p className="product-card__price">Cena: {product.price} zł</p>
+        {product ? (
+          <Row>
+            <Col xl="5">
+              <div className="product-card__image">
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${product.poster_path}`}
+                  alt={product.original_title}
+                />
               </div>
-              <button
-                className="product-card__button"
-                disabled={productInCart}
-                onClick={() => addToCart(product)}
-              >
-                Dodaj do koszyka
-              </button>
-              {productInCart ? (
-                <span className="product-card__cart-info">
-                  Film został dodany do koszyka
-                </span>
-              ) : null}
-            </div>
-          </Col>
-        </Row>
+            </Col>
+            <Col xl="7">
+              <div className="product-card__product-decription-wrapper">
+                <div className="product-card__product-description">
+                  <h2 className="product-card__title">
+                    {product.original_title}
+                  </h2>
+                  <p className="product-card__desc-element">
+                    Gatunek:{' '}
+                    {Array.isArray(product.genres_data)
+                      ? product.genres_data.join(', ')
+                      : product.genres_data}
+                  </p>
+                  <p className="product-card__desc-element">
+                    Rok wydania: {product.release_year}
+                  </p>
+                  <p className="product-card__desc-element">
+                    Czas trwania: {product.time_str}
+                  </p>
+                  <p className="product-card__overview">{product.overview}</p>
+                  <p className="product-card__price">
+                    Cena: {product.price} zł
+                  </p>
+                </div>
+                <button
+                  className="product-card__button"
+                  disabled={productInCart}
+                  onClick={() => addToCart(product)}
+                >
+                  Dodaj do koszyka
+                </button>
+                {productInCart ? (
+                  <span className="product-card__cart-info">
+                    Film został dodany do koszyka
+                  </span>
+                ) : null}
+              </div>
+            </Col>
+          </Row>
+        ) : (
+          <p className="product-card__not-found-info">Przykro nam, ale szukanego filmu nie ma w naszej bazie...</p>
+        )}
       </div>
     </Container>
   );

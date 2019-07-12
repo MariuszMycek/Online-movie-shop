@@ -4,6 +4,7 @@ import {
   SORT_ALPHABETICALLY_REVERSED,
   SORT_BY_PRICE_ASCENDING,
   SORT_BY_PRICE_DESCENDING,
+  SEARCH_FOR_MOVIES,
 } from './productActions';
 
 // universal sorting function
@@ -45,7 +46,7 @@ function sortArray(array, sortingElement, sortingType) {
 // Initial State
 const initialState = [];
 
-export default function products(state = initialState, action) {
+export default function movies(state = initialState, action) {
   switch (action.type) {
     case GET_MOVIES: {
       return [...action.products];
@@ -74,6 +75,19 @@ export default function products(state = initialState, action) {
 
       return [...sortedMovies];
     }
+
+    case SEARCH_FOR_MOVIES: {
+      const movies = [...state];
+
+      const phrase = action.title.trim().toLowerCase();
+
+      const foundMovies = movies.filter(movie =>
+        movie.original_title.toLowerCase().includes(phrase)
+      );
+      console.log(foundMovies);
+      return [...foundMovies];
+    }
+
     default:
       return state;
   }

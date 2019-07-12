@@ -29,6 +29,9 @@ const Pagination = props => {
   };
 
   const lastPageNumber = activePage => {
+    if (pagesCount < 5) {
+      return pagesCount;
+    }
     if (activePage <= 3) {
       return 5;
     }
@@ -84,7 +87,7 @@ const Pagination = props => {
 
         {items}
 
-        {activePage !== pagesCount ? (
+        {activePage !== pagesCount && pagesCount !== 0 ? (
           <div className="pagination__icon-wrapper">
             <Link href={`/?sort_by=${sortType}&page=${activePage + 1}`}>
               <li className="pagination__list-item">

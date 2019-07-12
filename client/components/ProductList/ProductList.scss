@@ -2,6 +2,31 @@
 @import '../../styles/mixins';
 
 .products {
+  &__number-of-films {
+    color: $secondary-color;
+    span {
+      color: $primary-color;
+    }
+  }
+  &__search-info {
+    color: $secondary-color;
+    display: flex;
+    align-items: center;
+
+    span {
+      color: $primary-color;
+    }
+  }
+  &__reset-search-button {
+    margin-left: 40px;
+    background: $button-bg-optional;
+    cursor: pointer;
+    font-size: 16px;
+    height: 28px;
+    color: $button-font-color-secondary;
+    padding: 0 10px;
+    border-radius: 3px;
+  }
   &__list-item {
     position: relative;
 
@@ -13,7 +38,7 @@
   &__product-card-wrapper {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 15px;
     background: $product-card-bg;
     width: calc(100% - 30px);
   }
@@ -56,7 +81,7 @@
     opacity: 0;
     position: absolute;
     bottom: 10px;
-    background: $body-bg;
+    background: $product-card-text-box-bg;
     color: $primary-color;
     width: 100%;
     padding: 10px 0;
@@ -96,7 +121,6 @@
     padding: 5px 10px;
     border-radius: 3px;
 
-    // @include transition();
     &:hover {
       transform: scale(1.05);
     }
