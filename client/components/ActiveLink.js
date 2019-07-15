@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'next/router';
+import PropTypes from 'prop-types';
 
 function ActiveLink({ children, router, href, className }) {
   const styleClass =
@@ -15,5 +16,12 @@ function ActiveLink({ children, router, href, className }) {
     </a>
   );
 }
+
+ActiveLink.propTypes = {
+  children: PropTypes.node,
+  router: PropTypes.object,
+  href: PropTypes.string,
+  className: PropTypes.string,
+};
 
 export default withRouter(ActiveLink);

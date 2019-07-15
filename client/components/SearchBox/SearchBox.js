@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Router from 'next/router';
 
-// import data from '../../../data.json';
-
-import { getProducts } from '../../redux/productActions';
 import { setSearchedPhrase } from '../../redux/auxiliaryActions';
 
 import SearchIcon from '../Icons/search.svg';
@@ -29,9 +27,7 @@ class SearchBox extends Component {
     e.preventDefault();
     if (this.state.inputValue) {
       Router.push(`/?phrase=${this.state.inputValue}`);
-      // await this.props.getProducts(data);
       this.props.setSearchedPhrase(this.state.inputValue);
-      // this.props.searchForMovies(this.state.inputValue);
       this.setState({ inputValue: '' });
     }
   };
@@ -74,8 +70,12 @@ class SearchBox extends Component {
   }
 }
 
+SearchBox.propTypes = {
+  setSearchedPhrase: PropTypes.func,
+};
+
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ getProducts, setSearchedPhrase }, dispatch);
+  bindActionCreators({ setSearchedPhrase }, dispatch);
 
 export default connect(
   null,

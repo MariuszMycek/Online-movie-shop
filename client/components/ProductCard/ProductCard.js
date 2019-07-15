@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
 import { bindActionCreators } from 'redux';
@@ -79,6 +80,13 @@ const ProductCard = ({ movies, router, addToCart, productsInCart }) => {
       </div>
     </Container>
   );
+};
+
+ProductCard.propTypes = {
+  movies: PropTypes.array,
+  router: PropTypes.object,
+  addToCart: PropTypes.func,
+  productsInCart: PropTypes.array,
 };
 
 const mapStateToProps = state => ({

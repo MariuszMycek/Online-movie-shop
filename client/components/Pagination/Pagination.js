@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ArrowRight from '../Icons/arrow-right.svg';
 import ArrowLeft from '../Icons/arrow-left.svg';
 import DoubleLeft from '../Icons/double-left.svg';
@@ -120,6 +121,14 @@ const Pagination = props => {
     </div>
   );
 };
+
+Pagination.propTypes = {
+  activePage: PropTypes.number,
+  productCount: PropTypes.number,
+  sortType: PropTypes.string,
+  phrase: PropTypes.string,
+};
+
 const mapStateToProps = state => {
   return {
     sortType: state.auxiliary.sortType,

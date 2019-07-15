@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Link from 'next/link';
 
-import * as sortActions from '../../redux/productActions';
 import * as sortTypeActions from '../../redux/auxiliaryActions';
 
 import './SortMenu.scss';
@@ -63,6 +63,11 @@ const SortMenu = props => {
   );
 };
 
+SortMenu.propTypes = {
+  phrase: PropTypes.string,
+  sortType: PropTypes.string,
+};
+
 const mapStateToProps = state => {
   return {
     sortType: state.auxiliary.sortType,
@@ -71,7 +76,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ ...sortActions, ...sortTypeActions }, dispatch);
+  return bindActionCreators({ ...sortTypeActions }, dispatch);
 };
 
 export default connect(

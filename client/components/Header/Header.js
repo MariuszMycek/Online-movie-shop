@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import Basket from '../Icons/basket.svg';
 import ActiveLink from '../ActiveLink';
 import Link from 'next/link';
@@ -99,6 +101,10 @@ class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  amountOfitemsInCart: PropTypes.number,
+};
 
 const mapStateToProps = state => ({
   amountOfitemsInCart: state.cart.products.length,

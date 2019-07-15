@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './CheckoutModal.scss';
 
@@ -30,6 +31,13 @@ const CheckoutModal = ({
       </div>
     </div>
   );
+};
+
+CheckoutModal.propTypes = {
+  totalPriceAfterDiscount: PropTypes.string,
+  closeCheckoutModal: PropTypes.func,
+  products: PropTypes.array,
+  handlePayment: PropTypes.func,
 };
 
 export default CheckoutModal;

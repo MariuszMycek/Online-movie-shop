@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Router, { withRouter } from 'next/router';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import * as CartActions from '../../redux/cartActions';
 
@@ -63,15 +64,16 @@ class Cart extends Component {
       setDiscount,
     } = this.props;
 
-    const isDiscount = this.props.discount !== 0;
+    const isDiscount = discount !== 0;
 
     const productTotalPriceArray = products.map(
       item => item.amount * item.product.price
     );
 
-    const totalPrice = productTotalPriceArray.length
-      ? productTotalPriceArray.reduce((a, b) => a + b).toFixed(2)
-      : 0;
+    const totalPrice =
+      productTotalPriceArray.length > 0
+        ? +productTotalPriceArray.reduce((a, b) => a + b).toFixed(2)
+        : 0;
 
     const totalPriceAfterDiscount = (
       totalPrice -
@@ -200,6 +202,17 @@ class Cart extends Component {
     );
   }
 }
+
+Cart.propTypes = {
+  getDiscount: PropTypes.func,
+  resetCart: PropTypes.func,
+  products: PropTypes.array,
+  removeFromCart: PropTypes.func,
+  increaseTheAmount: PropTypes.func,
+  decreaseTheAmount: PropTypes.func,
+  discount: PropTypes.number,
+  setDiscount: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   products: state.cart.products,
