@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
 import { bindActionCreators } from 'redux';
-import { addToCart } from '../../redux/cartActions';
+import * as CartActions from '../../redux/cartActions';
 
 import GoBackButon from '../GoBackButton/GoBackButton';
 
@@ -12,10 +12,10 @@ import Col from 'react-bootstrap/Col';
 
 import './ProductCard.scss';
 
-const ProductCard = ({ movies, router, addToCart, products }) => {
+const ProductCard = ({ movies, router, addToCart, productsInCart }) => {
   const productId = +router.query.product_id;
   const product = movies.find(movie => movie.id === productId);
-  const productInCart = products.find(
+  const productInCart = productsInCart.find(
     cartElement => productId === cartElement.product.id
   );
 
@@ -72,7 +72,9 @@ const ProductCard = ({ movies, router, addToCart, products }) => {
             </Col>
           </Row>
         ) : (
-          <p className="product-card__not-found-info">Przykro nam, ale szukanego filmu nie ma w naszej bazie...</p>
+          <p className="product-card__not-found-info">
+            Przykro nam, ale szukanego filmu nie ma w naszej bazie...
+          </p>
         )}
       </div>
     </Container>
@@ -81,11 +83,11 @@ const ProductCard = ({ movies, router, addToCart, products }) => {
 
 const mapStateToProps = state => ({
   movies: state.movies,
-  products: state.cart.products,
+  productsInCart: state.cart.products,
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ addToCart }, dispatch);
+  bindActionCreators({ ...CartActions }, dispatch);
 
 export default withRouter(
   connect(

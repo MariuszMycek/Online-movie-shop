@@ -14,7 +14,7 @@ const SortMenu = props => {
     <div className="sort-menu">
       <h3 className="sort-menu__header">Sortuj:</h3>
       <ul className="sort-menu__sorting-options">
-        <Link href={`/?sort_by=name_asc&page=1`}>
+        <Link href={`/?sort_by=name_asc&page=1&phrase=${props.phrase}`}>
           <li
             className={
               props.sortType === 'name_asc'
@@ -25,7 +25,7 @@ const SortMenu = props => {
             Tytuł A-Z
           </li>
         </Link>
-        <Link href={`/?sort_by=name_desc&page=1`}>
+        <Link href={`/?sort_by=name_desc&page=1&phrase=${props.phrase}`}>
           <li
             className={
               props.sortType === 'name_desc'
@@ -36,7 +36,7 @@ const SortMenu = props => {
             Tytuł Z-A
           </li>
         </Link>
-        <Link href={`/?sort_by=price_asc&page=1`}>
+        <Link href={`/?sort_by=price_asc&page=1&phrase=${props.phrase}`}>
           <li
             className={
               props.sortType === 'price_asc'
@@ -47,7 +47,7 @@ const SortMenu = props => {
             Cena rosnąco
           </li>
         </Link>
-        <Link href={`/?sort_by=price_desc&page=1`}>
+        <Link href={`/?sort_by=price_desc&page=1&phrase=${props.phrase}`}>
           <li
             className={
               props.sortType === 'price_desc'
@@ -66,6 +66,7 @@ const SortMenu = props => {
 const mapStateToProps = state => {
   return {
     sortType: state.auxiliary.sortType,
+    phrase: state.auxiliary.searchedPhrase,
   };
 };
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import Router from 'next/router';
 import ArrowLeft from '../Icons/arrow-left.svg';
 

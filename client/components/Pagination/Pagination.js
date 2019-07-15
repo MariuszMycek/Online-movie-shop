@@ -15,33 +15,33 @@ const Pagination = props => {
   const pagesCount = Math.ceil(props.productCount / 6);
   const { sortType } = props;
 
-  const firstPageNumber = activePage => {
-    if (activePage <= 3) {
+  const firstPageNumber = page => {
+    if (page <= 3) {
       return 1;
     }
-    if (activePage === pagesCount) {
-      return activePage - 4;
+    if (page === pagesCount) {
+      return page - 4;
     }
-    if (pagesCount - activePage < 2) {
+    if (pagesCount - page < 2) {
       return pagesCount - 4;
     }
-    return activePage - 2;
+    return page - 2;
   };
 
-  const lastPageNumber = activePage => {
+  const lastPageNumber = page => {
     if (pagesCount < 5) {
       return pagesCount;
     }
-    if (activePage <= 3) {
+    if (page <= 3) {
       return 5;
     }
-    if (activePage === pagesCount) {
-      return activePage;
+    if (page === pagesCount) {
+      return page;
     }
-    if (pagesCount - activePage < 2) {
+    if (pagesCount - page < 2) {
       return pagesCount;
     }
-    return activePage + 2;
+    return page + 2;
   };
 
   for (
@@ -50,18 +50,21 @@ const Pagination = props => {
     number++
   ) {
     items.push(
-      <Link href={`/?sort_by=${sortType}&page=${number}`} key={number}>
-        <li
-          className={
-            number === activePage
-              ? `${styleClass} ${styleClass}--active`
-              : styleClass
-          }
-          onClick={e => {
-            number === activePage ? e.preventDefault() : null;
-          }}
-        >
-          {number}
+      <Link
+        href={`/?sort_by=${sortType}&page=${number}&phrase=${props.phrase}`}
+        key={number}
+      >
+        <li>
+          <button
+            disabled={number === activePage}
+            className={
+              number === activePage
+                ? `${styleClass} ${styleClass}--active`
+                : styleClass
+            }
+          >
+            {number}
+          </button>
         </li>
       </Link>
     );
@@ -72,12 +75,16 @@ const Pagination = props => {
       <ul className="pagination__list">
         {activePage !== 1 ? (
           <div className="pagination__icon-wrapper">
-            <Link href={`/?sort_by=${sortType}&page=1`}>
+            <Link href={`/?sort_by=${sortType}&page=1&phrase=${props.phrase}`}>
               <li className="pagination__list-item">
                 <DoubleLeft className="pagination__icon pagination__icon--double-arrow" />
               </li>
             </Link>
-            <Link href={`/?sort_by=${sortType}&page=${activePage - 1}`}>
+            <Link
+              href={`/?sort_by=${sortType}&page=${activePage - 1}&phrase=${
+                props.phrase
+              }`}
+            >
               <li className="pagination__list-item">
                 <ArrowLeft className="pagination__icon" />
               </li>
@@ -89,12 +96,20 @@ const Pagination = props => {
 
         {activePage !== pagesCount && pagesCount !== 0 ? (
           <div className="pagination__icon-wrapper">
-            <Link href={`/?sort_by=${sortType}&page=${activePage + 1}`}>
+            <Link
+              href={`/?sort_by=${sortType}&page=${activePage + 1}&phrase=${
+                props.phrase
+              }`}
+            >
               <li className="pagination__list-item">
                 <ArrowRight className="pagination__icon" />
               </li>
             </Link>
-            <Link href={`/?sort_by=${sortType}&page=${pagesCount}`}>
+            <Link
+              href={`/?sort_by=${sortType}&page=${pagesCount}&phrase=${
+                props.phrase
+              }`}
+            >
               <li className="pagination__list-item">
                 <DoubleRight className="pagination__icon pagination__icon--double-arrow" />
               </li>
@@ -107,7 +122,8 @@ const Pagination = props => {
 };
 const mapStateToProps = state => {
   return {
-    sortType: state.sortType,
+    sortType: state.auxiliary.sortType,
+    phrase: state.auxiliary.searchedPhrase,
   };
 };
 

@@ -9,10 +9,10 @@ import Col from 'react-bootstrap/Col';
 import SortMenu from '../client/components/SortMenu/SortMenu';
 import ProductList from '../client/components/ProductList/ProductList';
 
-import { getProducts, sortOnLoad } from '../client/redux/productActions';
+import { fetchData } from '../client/redux/productActions';
 import {
   setSortType,
-  resetSearchedPhrase,
+  setSearchedPhrase,
 } from '../client/redux/auxiliaryActions';
 
 const Home = () => (
@@ -39,13 +39,11 @@ const Home = () => (
 );
 
 Home.getInitialProps = async ({ store, query }) => {
-  if (!store.getState().movies.length) {
-    await store.dispatch(getProducts());
-    store.dispatch(resetSearchedPhrase());
-  }
-  const { sort_by } = query;
-  store.dispatch(sortOnLoad(sort_by));
+  const { sort_by, page, phrase } = query;
+  await store.dispatch(fetchData(sort_by, page, phrase));
+
   store.dispatch(setSortType(sort_by));
+  store.dispatch(setSearchedPhrase(phrase));
 
   return {};
 };

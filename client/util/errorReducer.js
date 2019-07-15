@@ -10,7 +10,7 @@ export default function errors(state = initialState, action) {
       return { ...state, isError: true, message: action.message };
 
     case NO_ERROR:
-      return { ...state, isError: false, message: action.response  };
+      return { ...state, isError: false, message: action.response };
 
     default:
       return state;

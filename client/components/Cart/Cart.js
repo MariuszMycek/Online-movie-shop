@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'next/router';
+import Router, { withRouter } from 'next/router';
 import { bindActionCreators } from 'redux';
-import Router from 'next/router';
-
-import discounts from '../../../discounts.json';
 
 import * as CartActions from '../../redux/cartActions';
 
@@ -37,18 +34,8 @@ class Cart extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    if (
-      discounts.includes(this.state.inputValue) &&
-      this.props.discount === 0
-    ) {
-      this.props.setDiscount(+this.state.inputValue);
+    this.props.getDiscount(this.state.inputValue);
 
-      alert(`Kod poprawny!
-
-      Przyznano rabat w wysokości ${this.state.inputValue}%`);
-    } else {
-      alert('Niestety podany kod nie jest poprawny');
-    }
     this.setState({ inputValue: '', inputVisible: false });
   };
 
@@ -73,6 +60,7 @@ class Cart extends Component {
       increaseTheAmount,
       decreaseTheAmount,
       discount,
+      setDiscount,
     } = this.props;
 
     const isDiscount = this.props.discount !== 0;
@@ -164,18 +152,25 @@ class Cart extends Component {
                         }
                         value={this.state.inputValue}
                         onChange={this.handleChange}
-                        autoFocus={true}
-                        disabled={isDiscount || products.length === 0}
+                        autoFocus
                       />
                     </form>
                   </CSSTransition>
-                  <button
-                    className="cart__checkout-button cart__checkout-button--discount"
-                    onClick={this.handleToggleInput}
-                    disabled={products.length === 0}
-                  >
-                    Kod rabatowy
-                  </button>
+                  {isDiscount ? (
+                    <button
+                      className="cart__checkout-button cart__checkout-button--discount"
+                      onClick={() => setDiscount(0)}
+                    >
+                      Usuń rabat
+                    </button>
+                  ) : (
+                    <button
+                      className="cart__checkout-button cart__checkout-button--discount"
+                      onClick={this.handleToggleInput}
+                    >
+                      Kod rabatowy
+                    </button>
+                  )}
                   <button
                     className="cart__checkout-button cart__checkout-button--submit"
                     onClick={this.showCheckoutModal}

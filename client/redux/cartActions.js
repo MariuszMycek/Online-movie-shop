@@ -1,3 +1,7 @@
+/* eslint-disable no-alert */
+
+import callApi from '../util/apiCaller';
+
 // Export Constants
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
@@ -46,5 +50,21 @@ export function setDiscount(value) {
 export function resetCart() {
   return {
     type: RESET_CART,
+  };
+}
+
+export function getDiscount(value) {
+  return dispatch => {
+    return callApi(`discount/${value}`).then(res => {
+      if (res === null) {
+        dispatch(setDiscount(0));
+        alert('Niestety podany kod nie jest poprawny');
+      } else {
+        dispatch(setDiscount(res.discount_value));
+        alert(`Kod poprawny!
+
+      Przyznano rabat w wysokości ${res.discount_value}%`);
+      }
+    });
   };
 }

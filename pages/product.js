@@ -1,7 +1,7 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import { getProducts } from '../client/redux/productActions';
+import { getMovie } from '../client/redux/productActions';
 
 import ProductCard from '../client/components/ProductCard/ProductCard';
 import Layout from '../client/components/Layout/Layout';
@@ -24,7 +24,7 @@ Product.getInitialProps = async ({ store, query }) => {
     movie => movie.id === +query.product_id
   );
   if (!isMovieInStore) {
-    await store.dispatch(getProducts());
+    await store.dispatch(getMovie(query.product_id));
   }
 
   return {};

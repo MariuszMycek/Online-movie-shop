@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Router from 'next/router';
 
-import data from '../../../data.json';
+// import data from '../../../data.json';
 
-import { searchForMovies, getProducts } from '../../redux/productActions';
+import { getProducts } from '../../redux/productActions';
 import { setSearchedPhrase } from '../../redux/auxiliaryActions';
 
 import SearchIcon from '../Icons/search.svg';
@@ -28,20 +28,20 @@ class SearchBox extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     if (this.state.inputValue) {
-      Router.push('/');
-      await this.props.getProducts(data);
+      Router.push(`/?phrase=${this.state.inputValue}`);
+      // await this.props.getProducts(data);
       this.props.setSearchedPhrase(this.state.inputValue);
-      this.props.searchForMovies(this.state.inputValue);
+      // this.props.searchForMovies(this.state.inputValue);
       this.setState({ inputValue: '' });
     }
   };
 
-  showInput = e => {
+  showInput = () => {
     this.searchInput.focus();
     this.setState({ inputVisible: true });
   };
 
-  hideInput = e => {
+  hideInput = () => {
     this.setState({ inputVisible: false });
   };
 
@@ -75,10 +75,7 @@ class SearchBox extends Component {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    { searchForMovies, getProducts, setSearchedPhrase },
-    dispatch
-  );
+  bindActionCreators({ getProducts, setSearchedPhrase }, dispatch);
 
 export default connect(
   null,

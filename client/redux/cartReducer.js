@@ -24,17 +24,17 @@ export default function cart(state = initialState, action) {
       const newProducts = products.filter(
         item => item.product.id !== action.product.id
       );
-      console.log(newProducts);
       return { ...state, products: [...newProducts] };
     }
 
     case INCREASE_THE_AMOUNT: {
       const products = [...state.products];
       const newProducts = products.map(item => {
+        const newItem = { ...item };
         if (item.product.id === action.product.id) {
-          item.amount++;
+          newItem.amount++;
         }
-        return item;
+        return newItem;
       });
       return { ...state, products: [...newProducts] };
     }
@@ -42,10 +42,11 @@ export default function cart(state = initialState, action) {
     case DECREASE_THE_AMOUNT: {
       const products = [...state.products];
       const newProducts = products.map(item => {
+        const newItem = { ...item };
         if (item.product.id === action.product.id) {
-          item.amount--;
+          newItem.amount--;
         }
-        return item;
+        return newItem;
       });
       return { ...state, products: [...newProducts] };
     }

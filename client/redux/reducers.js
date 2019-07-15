@@ -12,5 +12,5 @@ import cart from './cartReducer';
 export default combineReducers({
   movies,
   auxiliary,
-  cart
+  cart,
 });

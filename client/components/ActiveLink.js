@@ -1,3 +1,4 @@
+import React from 'react';
 import { withRouter } from 'next/router';
 
 function ActiveLink({ children, router, href, className }) {

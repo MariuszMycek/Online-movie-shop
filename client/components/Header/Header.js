@@ -19,11 +19,6 @@ class Header extends Component {
     };
   }
 
-  // Add debounce for better performance
-  debounced = debounce(() => this.handleScroll(), 50, {
-    maxWait: 500,
-  });
-
   // Adds an event listener when the component is mount.
   componentDidMount() {
     window.addEventListener('scroll', this.debounced);
@@ -34,6 +29,11 @@ class Header extends Component {
   componentWillUnmount() {
     window.removeEventListener('scroll', this.debounced);
   }
+
+  // Add debounce for better performance
+  debounced = debounce(() => this.handleScroll(), 50, {
+    maxWait: 500,
+  });
 
   handleScroll = () => {
     const currentScrollPosition = window.pageYOffset;
