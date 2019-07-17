@@ -18,50 +18,66 @@ const sortBy = sortType => {
   }
 };
 
+// Filters
+const yearFilter = yearsArray => {
+  return {
+    $or: yearsArray.map(year => {
+      return {
+        release_year: year,
+      };
+    }),
+  };
+};
+
+const genreFilter = genreArray => {
+  return {
+    $or: genreArray.map(genre => {
+      return {
+        genres_data: genre,
+      };
+    }),
+  };
+};
+
+// query
+const query = (yearsArray, genresArray, searchedPhrase) => {
+  const phraseFilter = searchedPhrase
+    ? { $text: { $search: searchedPhrase } }
+    : {};
+
+  if (yearsArray.length > 0 && genresArray.length === 0) {
+    return {
+      $and: [yearFilter(yearsArray), phraseFilter],
+    };
+  }
+  if (genresArray.length > 0 && yearsArray.length === 0) {
+    return {
+      $and: [genreFilter(genresArray), phraseFilter],
+    };
+  }
+  if (genresArray.length > 0 && yearsArray.length > 0) {
+    return {
+      $and: [yearFilter(yearsArray), genreFilter(genresArray), phraseFilter],
+    };
+  }
+  return phraseFilter;
+};
+
 // get Movies
 export function getMovies(req, res) {
-  const pageNumber = req.params.page;
+  const { page, phrase, sort_by } = req.params;
+
   const nPerPage = 6 || 6;
 
-  Promise.all([
-    Movie.find()
-      .sort(sortBy(req.params.sort_by))
-      .skip(pageNumber > 0 ? (pageNumber - 1) * nPerPage : 0)
-      .limit(nPerPage)
-      .exec(),
-    Movie.find()
-      .countDocuments()
-      .exec(),
-  ])
-    .then(([movies, count]) => {
-      res.json({ movies, count });
-    })
-    .catch(err => res.status(500).send(err));
-}
-
-export function searchMovies(req, res) {
-  const pageNumber = req.params.page;
-  const nPerPage = 6 || 6;
-  const phrase = req.params.phrase;
-
-  const sortParameter =
-    req.params.sort_by === 'noSort'
-      ? { score: { $meta: 'textScore' } }
-      : sortBy(req.params.sort_by);
+  const { years = [], genres = [] } = req.body;
 
   Promise.all([
-    Movie.find(
-      { $text: { $search: phrase } },
-      { score: { $meta: 'textScore' } }
-    )
-      .sort(sortParameter)
-      .skip(pageNumber > 0 ? (pageNumber - 1) * nPerPage : 0)
+    Movie.find(query(years, genres, phrase))
+      .sort(sortBy(sort_by))
+      .skip(page > 0 ? (page - 1) * nPerPage : 0)
       .limit(nPerPage)
       .exec(),
-    Movie.find(
-      { $text: { $search: phrase } },
-      { score: { $meta: 'textScore' } }
-    )
+    Movie.find(query(years, genres, phrase))
       .countDocuments()
       .exec(),
   ])

@@ -1,0 +1,80 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.filters {
+  &__form {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    font-size: 15px;
+    border-bottom: 1px solid $primary-color;
+  }
+
+  &__header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__reset-button {
+    font-size: 13px;
+    padding: 0 3px;
+    border-radius: 3px;
+    background: $button-bg-optional;
+    color: $button-font-color-optional;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    min-width: 50%;
+    min-height: 2rem;
+
+    .custom-control-label {
+      &:hover {
+        color: $link-active-color;
+      }
+
+      &:before {
+        background-color: $body-bg;
+        border-color: $border-red;
+        top: 0.2rem;
+      }
+
+      &:after {
+        top: 0.2rem;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .custom-control-input {
+      &:focus {
+        ~ .custom-control-label::before {
+          box-shadow: 0 0 6px 2px $input-focus-red-shadow;
+          border-color: $border-red;
+        }
+      }
+
+      &:checked {
+        ~ .custom-control-label {
+          color: $link-active-color;
+        }
+
+        ~ .custom-control-label::before {
+          background-color: $body-bg;
+          border-color: $border-red;
+        }
+      }
+
+      &:active {
+        ~ .custom-control-label::before {
+          background-color: $button-bg-secondary;
+          border-color: $border-red;
+        }
+      }
+    }
+  }
+}

@@ -12,7 +12,7 @@ const SortMenu = props => {
   const styleClass = 'sort-menu__option';
   return (
     <div className="sort-menu">
-      <h3 className="sort-menu__header">Sortuj:</h3>
+      <h4 className="sort-menu__header">Sortuj:</h4>
       <ul className="sort-menu__sorting-options">
         <Link href={`/?sort_by=name_asc&page=1&phrase=${props.phrase}`}>
           <li

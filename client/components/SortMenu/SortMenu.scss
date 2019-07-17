@@ -5,12 +5,13 @@
   border-bottom: 1px solid $primary-color;
 
   &__header {
-    margin-top: 0;
-    margin-bottom: 30px;
+    margin-top: 3px;
+    margin-bottom: 21px;
   }
 
   &__option {
-    margin: 15px 0;
+    font-size: 15px;
+    margin: 10px 0;
     cursor: pointer;
 
     &:hover {

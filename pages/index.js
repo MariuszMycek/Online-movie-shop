@@ -8,12 +8,17 @@ import Col from 'react-bootstrap/Col';
 
 import SortMenu from '../client/components/SortMenu/SortMenu';
 import ProductList from '../client/components/ProductList/ProductList';
+import Filters from '../client/components/Filters/Filters';
 
-import { fetchData } from '../client/redux/productActions';
+import { getMovies } from '../client/redux/productActions';
 import {
   setSortType,
   setSearchedPhrase,
+  setResultCount,
+  setCategories,
 } from '../client/redux/auxiliaryActions';
+
+import callApi from '../client/util/apiCaller';
 
 const Home = () => (
   <Layout>
@@ -24,6 +29,7 @@ const Home = () => (
             <Col xs="3">
               <aside>
                 <SortMenu />
+                <Filters />
               </aside>
             </Col>
             <Col xs="9">
@@ -39,11 +45,27 @@ const Home = () => (
 );
 
 Home.getInitialProps = async ({ store, query }) => {
-  const { sort_by, page, phrase } = query;
-  await store.dispatch(fetchData(sort_by, page, phrase));
+  const { sort_by = 'noSort', page = 1, phrase = '' } = query;
 
-  store.dispatch(setSortType(sort_by));
-  store.dispatch(setSearchedPhrase(phrase));
+  const auxiliary = store.getState().auxiliary;
+
+  if (!auxiliary.yearsCategories && !auxiliary.genresCategories) {
+    await callApi('filter').then(res => {
+      store.dispatch(setCategories(res.years, res.genres));
+    });
+  }
+  await callApi(`home/${sort_by}/${page}/${phrase}`, 'SEARCH', {
+    years: auxiliary.yearFilter,
+    genres: auxiliary.genreFilter,
+  })
+    .then(res => {
+      store.dispatch(getMovies(res.movies));
+      store.dispatch(setResultCount(res.count));
+    })
+    .then(() => {
+      store.dispatch(setSortType(sort_by));
+      store.dispatch(setSearchedPhrase(phrase));
+    });
 
   return {};
 };

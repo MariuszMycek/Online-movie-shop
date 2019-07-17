@@ -1,10 +1,12 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import { getMovie } from '../client/redux/productActions';
+import { getMovies } from '../client/redux/productActions';
 
 import ProductCard from '../client/components/ProductCard/ProductCard';
 import Layout from '../client/components/Layout/Layout';
+
+import callApi from '../client/util/apiCaller';
 
 const Product = () => {
   return (
@@ -24,7 +26,9 @@ Product.getInitialProps = async ({ store, query }) => {
     movie => movie.id === +query.product_id
   );
   if (!isMovieInStore) {
-    await store.dispatch(getMovie(query.product_id));
+    await callApi(`product/${query.product_id}`).then(res => {
+      store.dispatch(getMovies(res));
+    });
   }
 
   return {};

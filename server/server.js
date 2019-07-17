@@ -10,6 +10,7 @@ import serverConfig from './config';
 import home from './routes/home.routes';
 import product from './routes/product.routes';
 import discount from './routes/discount.routes';
+import filter from './routes/filter.routes';
 
 mongoose.Promise = global.Promise;
 mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, error => {
@@ -27,6 +28,7 @@ nextApp.prepare().then(() => {
   app.use('/api', home);
   app.use('/api', product);
   app.use('/api', discount);
+  app.use('/api', filter);
   app.get('*', (req, res) => {
     return handle(req, res); // for all the react stuff
   });

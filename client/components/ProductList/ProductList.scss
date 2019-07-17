@@ -3,6 +3,7 @@
 
 .products {
   &__number-of-films {
+    margin-top: 0;
     color: $secondary-color;
     span {
       color: $primary-color;
@@ -100,6 +101,7 @@
 
   &__desc-element {
     font-size: 13px;
+    margin: 13px 0;
   }
 
   &__action {
