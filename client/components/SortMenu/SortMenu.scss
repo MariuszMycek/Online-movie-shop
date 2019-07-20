@@ -1,8 +1,23 @@
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 .sort-menu {
   padding-bottom: 10px;
   border-bottom: 1px solid $primary-color;
+
+  @include media-breakpoint-down(sm) {
+    padding-top: 70px;
+    padding-left: 40px;
+    padding-right: 40px;
+    background: $body-bg;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  @include media-breakpoint-down(xs) {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 
   &__header {
     margin-top: 3px;
@@ -14,9 +29,21 @@
     margin: 10px 0;
     cursor: pointer;
 
+    &:last-child {
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 0;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $primary-color;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+    }
+
     &:hover {
       color: $link-hover-color;
     }
+
     &--active {
       color: $link-active-color;
     }

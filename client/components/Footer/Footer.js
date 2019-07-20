@@ -1,15 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 
+import Container from 'react-bootstrap/Container';
+
 import './Footer.scss';
 
 const Footer = () => (
   <footer className="footer">
-    <div className=" container footer__container">
+    <Container className="footer__container">
       <div className="footer__text">
-        <p>All right reserved SloMo 2019</p>
+        <p>All rights reserved SloMo 2019</p>
       </div>
-      <nav>
+      <nav className="footer__nav">
         <ul className="footer__list">
           <li className="footer__list-item">
             <Link href="/">
@@ -33,7 +35,7 @@ const Footer = () => (
           </li>
         </ul>
       </nav>
-    </div>
+    </Container>
   </footer>
 );
 

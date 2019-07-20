@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
+import { connect } from 'react-redux';
+
 import ArrowRight from '../Icons/arrow-right.svg';
 import ArrowLeft from '../Icons/arrow-left.svg';
 import DoubleLeft from '../Icons/double-left.svg';
 import DoubleRight from '../Icons/double-right.svg';
-import Link from 'next/link';
-import { connect } from 'react-redux';
 
 import './Pagination.scss';
 

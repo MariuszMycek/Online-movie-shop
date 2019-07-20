@@ -2,12 +2,37 @@
 @import '../../styles/mixins';
 
 .filters {
+  @include media-breakpoint-down(sm) {
+    padding-left: 40px;
+    padding-right: 40px;
+    background: $body-bg;
+  }
+
+  @include media-breakpoint-down(xs) {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
   &__form {
     display: flex;
     flex-wrap: wrap;
     padding-bottom: 20px;
     font-size: 15px;
     border-bottom: 1px solid $primary-color;
+
+    &--genres {
+      margin-bottom: 30px;
+
+      .filters__checkbox {
+        @include media-breakpoint-down(md) {
+          width: 100%;
+        }
+
+        @include media-breakpoint-only(sm) {
+          width: 50%;
+        }
+      }
+    }
   }
 
   &__header-wrapper {
@@ -22,6 +47,11 @@
     border-radius: 3px;
     background: $button-bg-optional;
     color: $button-font-color-optional;
+
+    @include media-breakpoint-down(sm) {
+      padding: 5px 8px;
+      font-size: 15px;
+    }
   }
 
   &__checkbox {

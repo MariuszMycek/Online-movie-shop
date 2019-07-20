@@ -2,6 +2,7 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import Layout from '../client/components/Layout/Layout';
+import Aside from '../client/components/Aside/Aside';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -26,13 +27,13 @@ const Home = () => (
       <main>
         <Container>
           <Row>
-            <Col xs="3">
-              <aside>
+            <Col xs="12" md="3">
+              <Aside>
                 <SortMenu />
                 <Filters />
-              </aside>
+              </Aside>
             </Col>
-            <Col xs="9">
+            <Col xs="12" md="9">
               <section>
                 <ProductList />
               </section>

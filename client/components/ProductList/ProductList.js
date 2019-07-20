@@ -24,7 +24,7 @@ const ProductList = ({ movies, addToCart, router, products, auxiliary }) => {
       {!router.query.phrase ? (
         <div>
           <p className="products__number-of-films">
-            Filmów w bazie: <span>{auxiliary.resultCount}</span>
+            Znaleziono filmów: <span>{auxiliary.resultCount}</span>
           </p>
         </div>
       ) : (
@@ -41,12 +41,12 @@ const ProductList = ({ movies, addToCart, router, products, auxiliary }) => {
             cartElement => element.id === cartElement.product.id
           );
           return (
-            <Col xl="6" className="products__list-item" key={i}>
+            <Col lg="6" className="products__list-item" key={i}>
               <TransitionGroup component={null}>
                 <CSSTransition key={element.id} timeout={500} classNames="fade">
                   <div className="products__product-card-wrapper">
                     <Row>
-                      <Col xl="6">
+                      <Col xs="12" sm="6">
                         <div className="products__image">
                           <img
                             src={`https://image.tmdb.org/t/p/w500${
@@ -63,10 +63,12 @@ const ProductList = ({ movies, addToCart, router, products, auxiliary }) => {
                           </Link>
                         </div>
                       </Col>
-                      <Col xl="6">
+                      <Col xs="12" sm="6">
                         <div className="products__product-decription-wrapper">
                           <div className="products__product-description">
-                            <h4>{element.original_title}</h4>
+                            <h4 className="products__desc-title">
+                              {element.original_title}
+                            </h4>
                             <p className="products__desc-element">
                               Gatunek:{' '}
                               {Array.isArray(element.genres_data)

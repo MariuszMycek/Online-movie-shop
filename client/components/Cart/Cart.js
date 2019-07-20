@@ -86,7 +86,7 @@ class Cart extends Component {
 
         <div className="cart">
           <Row>
-            <Col xs="7">
+            <Col xl="7">
               <CSSTransition
                 in={products.length === 0}
                 timeout={1000}
@@ -95,7 +95,6 @@ class Cart extends Component {
               >
                 <p className="cart__empty-cart-info">Twój koszyk jest pusty</p>
               </CSSTransition>
-
               <CSSTransition
                 in={products.length > 0}
                 timeout={500}
@@ -122,7 +121,7 @@ class Cart extends Component {
                 </div>
               </CSSTransition>
             </Col>
-            <Col xs="5">
+            <Col xl="5">
               <div className="cart__checkout">
                 <h4 className="cart__checkout-header">Podsumowanie</h4>
                 <div className="cart__order-value-details">

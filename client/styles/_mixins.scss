@@ -1,0 +1,7 @@
+@import '~bootstrap-scss/functions';
+@import '~bootstrap-scss/variables';
+@import '~bootstrap-scss/mixins/breakpoints';
+
+@mixin transition($property: all, $delay: 0.1s, $type: ease-out) {
+  transition: $property $delay $type;
+}

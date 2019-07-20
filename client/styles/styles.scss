@@ -1,8 +1,8 @@
+@import '~bootstrap-scss/bootstrap';
 @import './variables';
 @import './mixins';
 
 @import './animations.scss';
-@import '~bootstrap-scss/bootstrap';
 
 body {
   margin: 0;
@@ -16,6 +16,10 @@ main {
   min-height: calc(100vh - 215px);
   display: flex;
   margin-top: 155px;
+  @include media-breakpoint-down(sm) {
+    margin-top: 75px;
+    min-height: calc(100vh - 165px);
+  }
 }
 
 h2 {
@@ -52,7 +56,7 @@ a {
   &:hover {
     text-decoration: none;
   }
-  &:focus{
+  &:focus {
     outline: none;
   }
 }

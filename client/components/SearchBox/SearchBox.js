@@ -39,6 +39,7 @@ class SearchBox extends Component {
 
   hideInput = () => {
     this.setState({ inputVisible: false });
+    this.props.closeMenu();
   };
 
   render() {
@@ -72,6 +73,7 @@ class SearchBox extends Component {
 
 SearchBox.propTypes = {
   setSearchedPhrase: PropTypes.func,
+  closeMenu: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch =>

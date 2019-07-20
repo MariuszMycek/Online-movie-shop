@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import Basket from '../Icons/basket.svg';
-import ActiveLink from '../ActiveLink';
 import Link from 'next/link';
 import debounce from 'lodash/debounce';
 import { connect } from 'react-redux';
 
+import ActiveLink from '../ActiveLink';
+
 import Container from 'react-bootstrap/Container';
 import SearchBox from '../SearchBox/SearchBox';
+import { Emphatic } from 'react-burgers';
+
+import Basket from '../Icons/basket.svg';
 
 import './Header.scss';
 
@@ -17,7 +19,8 @@ class Header extends Component {
     super(props);
     this.state = {
       scrollPosition: window.pageYOffset,
-      headerShadow: false,
+      headerScrolled: false,
+      mobileMenuVisible: false,
     };
   }
 
@@ -30,6 +33,7 @@ class Header extends Component {
   // Remove the event listener when the component is unmount.
   componentWillUnmount() {
     window.removeEventListener('scroll', this.debounced);
+    this.debounced.cancel();
   }
 
   // Add debounce for better performance
@@ -39,30 +43,56 @@ class Header extends Component {
 
   handleScroll = () => {
     const currentScrollPosition = window.pageYOffset;
-    const headerShadow = currentScrollPosition > 10;
+    const headerScrolled = currentScrollPosition > 10;
 
     this.setState({
       scrollPosition: currentScrollPosition,
-      headerShadow,
+      headerScrolled,
     });
   };
 
+  toggleMenu = () =>
+    this.setState({ mobileMenuVisible: !this.state.mobileMenuVisible });
+
+  closeMenu = () => this.setState({ mobileMenuVisible: false });
+
   render() {
-    const headerClass = this.state.headerShadow
-      ? 'header header--with-shadow'
-      : 'header';
+    const headerClass = () => {
+      if (this.state.headerScrolled && !this.state.mobileMenuVisible) {
+        return 'header header--scrolled';
+      }
+      if (this.state.mobileMenuVisible) {
+        return 'header header--mobile-active';
+      }
+      return 'header';
+    };
+
+    const navbarClass = this.state.mobileMenuVisible
+      ? 'navbar navbar--visible'
+      : 'navbar';
+
     return (
-      <header className={headerClass}>
-        <Container className="header__container">
+      <header className={headerClass()} onClick={this.toggleMenu}>
+        <Emphatic
+          className="header__hamburger"
+          color="#df2021"
+          borderRadius={5}
+          onClick={this.toggleMenu}
+          active={this.state.mobileMenuVisible}
+        />
+        <Container
+          className="header__container"
+          onClick={e => e.stopPropagation()}
+        >
           <Link href="/">
             <div className="header__logo">
               <img src="/static/assets/images/logo.png" alt="logo" />
             </div>
           </Link>
-          <nav className="header__navbar navbar">
+          <nav className={`header__navbar ${navbarClass}`}>
             <ul className="navbar__list">
               <li className="navbar__list-item">
-                <SearchBox />
+                <SearchBox closeMenu={this.closeMenu} />
               </li>
               <li className="navbar__list-item">
                 <ActiveLink href="/" className="navbar__link">

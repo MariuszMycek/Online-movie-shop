@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import dynamic from 'next/dynamic';
 
 import Head from '../Head';
-import Footer from '../Footer/Footter';
+import Footer from '../Footer/Footer';
 
 const Header = dynamic(import('../Header/Header'), { ssr: false });
 

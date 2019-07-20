@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -16,15 +17,19 @@ const CartItem = ({
   return (
     <div className="cart-item__item">
       <Row>
-        <Col xs="3">
+        <Col sm="3">
           <div className="cart-item__item-thumbnail">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${item.product.poster_path}`}
-              alt="movie thumbnail"
-            />
+            <Link href={`/product?product_id=${item.product.id}`}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${
+                  item.product.poster_path
+                }`}
+                alt="movie thumbnail"
+              />
+            </Link>
           </div>
         </Col>
-        <Col>
+        <Col sm="9">
           <div className="cart-item__item-description">
             <h3 className="cart-item__item-title">
               {item.product.original_title}

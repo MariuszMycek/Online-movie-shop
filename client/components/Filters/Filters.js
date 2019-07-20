@@ -12,11 +12,7 @@ import './Filters.scss';
 
 class Filters extends Component {
   handleChange = (value, type, e) => {
-    const {
-      sort_by = 'noSort',
-      page = 1,
-      phrase = '',
-    } = this.props.router.query;
+    const { sort_by = 'noSort', phrase = '' } = this.props.router.query;
     const filters = {
       yearFilter: this.props.yearFilter,
       genreFilter: this.props.genreFilter,
@@ -32,7 +28,7 @@ class Filters extends Component {
       };
     }
     this.props.setFilters(newFilters);
-    Router.push(`/?sort_by=${sort_by}&page=${page}&phrase=${phrase}`);
+    Router.push(`/?sort_by=${sort_by}&page=1&phrase=${phrase}`);
   };
 
   isChecked = (type, value) => {
@@ -60,7 +56,7 @@ class Filters extends Component {
               Reset
             </button>
           </div>
-          <Form className="filters__form">
+          <Form className="filters__form filters__form--years">
             {years.map(year => (
               <Form.Check
                 className="filters__checkbox"
@@ -86,7 +82,7 @@ class Filters extends Component {
             </button>
           </div>
 
-          <Form className="filters__form">
+          <Form className="filters__form filters__form--genres">
             {genres.map(genre => (
               <Form.Check
                 className="filters__checkbox"

@@ -1,0 +1,30 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.aside {
+  @include media-breakpoint-down(sm) {
+    background: $modal-bg;
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: -100%;
+    top: 0;
+    z-index: 70;
+    @include transition($delay: 0.5s);
+  }
+
+  &--visible {
+    left: 0;
+  }
+
+  &__children-wrapper {
+    @include media-breakpoint-down(sm) {
+      width: 440px;
+    }
+
+    @include media-breakpoint-down(xs) {
+      width: 250px;
+    }
+  }
+}

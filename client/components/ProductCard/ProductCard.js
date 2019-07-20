@@ -26,7 +26,7 @@ const ProductCard = ({ movies, router, addToCart, productsInCart }) => {
       <div className="product-card">
         {product ? (
           <Row>
-            <Col xl="5">
+            <Col md="6" lg="5">
               <div className="product-card__image">
                 <img
                   src={`https://image.tmdb.org/t/p/w500${product.poster_path}`}
@@ -34,7 +34,7 @@ const ProductCard = ({ movies, router, addToCart, productsInCart }) => {
                 />
               </div>
             </Col>
-            <Col xl="7">
+            <Col md="6" lg="7">
               <div className="product-card__product-decription-wrapper">
                 <div className="product-card__product-description">
                   <h2 className="product-card__title">
