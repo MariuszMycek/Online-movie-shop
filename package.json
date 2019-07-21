@@ -43,10 +43,10 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.1.0",
     "remote-redux-devtools": "^0.5.16",
-    "webpack": "^4.0.0"
+    "webpack": "^4.0.0",
+    "@svgr/webpack": "^4.3.0"
   },
   "devDependencies": {
-    "@svgr/webpack": "^4.3.0",
     "babel-eslint": "^6.0.4",
     "cross-env": "1.0.8",
     "eslint": "^2.11.1",
