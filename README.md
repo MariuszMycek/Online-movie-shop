@@ -2,6 +2,17 @@
 
 This project was bootstrapped with [Create Next App](https://github.com/segmentio/create-next-app).
 
+Main technologies used in this app:
+
+- Next.js as base for server side rendering
+- MongoDB for data storage
+- Express for API building
+- Mongoose for data management
+- React for UI building
+- Redux for global state management
+- React Transition Group for some components and pages animations
+- React Bootstrap - grid and some form components
+
 ## Available Scripts
 
 In the project directory, you can run:
