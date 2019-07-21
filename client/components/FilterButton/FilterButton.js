@@ -15,18 +15,20 @@ class FilterButton extends Component {
     };
   }
 
-  // Adds an event listener when the component is mount.
   componentDidMount = () => {
+    // Adds an event listener when the component is mount.
     window.addEventListener('scroll', this.onScroll);
   };
 
-  // Remove the event listener when the component is unmount.
   componentWillUnmount = () => {
+    // Remove the event listener when the component is unmount.
     window.removeEventListener('scroll', this.onScroll);
+    // Clearing the timeouts
     this.hideButton.cancel();
     this.showButton.cancel();
   };
 
+  // Container for functions used in adding and removing event listeners
   onScroll = () => {
     this.showButton();
     this.hideButton();
@@ -40,9 +42,11 @@ class FilterButton extends Component {
 
   hideButton = debounce(() => this.setState({ buttonVisible: false }), 3000);
 
+  // Handle scroll behavior
   handleScroll = () => {
     const currentScrollPosition = window.pageYOffset;
-    const buttonVisible = currentScrollPosition !== this.state.scrollPosition;
+    const buttonVisible = currentScrollPosition !== this.state.scrollPosition; // true - false
+    // Updating state
     this.setState({
       scrollPosition: currentScrollPosition,
       buttonVisible,
@@ -51,6 +55,8 @@ class FilterButton extends Component {
 
   render() {
     const { toggleAside, asideVisible } = this.props;
+
+    // Filter Button class depending on state
     const filterButtonClass =
       this.state.buttonVisible || asideVisible
         ? 'filter-button'

@@ -17,6 +17,7 @@ import Col from 'react-bootstrap/Col';
 import './ProductList.scss';
 
 const ProductList = ({ movies, addToCart, router, products, auxiliary }) => {
+  // Getting active page number from query
   const activePage = +router.query.page || 1;
 
   return (

@@ -24,15 +24,18 @@ class Header extends Component {
     };
   }
 
-  // Adds an event listener when the component is mount.
   componentDidMount() {
+    // Adds an event listener when the component is mount.
     window.addEventListener('scroll', this.debounced);
+    // Initial check of scroll position
     this.handleScroll();
   }
 
   // Remove the event listener when the component is unmount.
   componentWillUnmount() {
+    // Remove the event listener when the component is unmount.
     window.removeEventListener('scroll', this.debounced);
+    // Clearing timeout
     this.debounced.cancel();
   }
 
@@ -41,6 +44,7 @@ class Header extends Component {
     maxWait: 500,
   });
 
+  // Handle scroll behavior
   handleScroll = () => {
     const currentScrollPosition = window.pageYOffset;
     const headerScrolled = currentScrollPosition > 10;
@@ -51,12 +55,15 @@ class Header extends Component {
     });
   };
 
+  // Toggling mobile menu
   toggleMenu = () =>
     this.setState({ mobileMenuVisible: !this.state.mobileMenuVisible });
 
+  // Closing mobile menu
   closeMenu = () => this.setState({ mobileMenuVisible: false });
 
   render() {
+    // Header class depending on state
     const headerClass = () => {
       if (this.state.headerScrolled && !this.state.mobileMenuVisible) {
         return 'header header--scrolled';
@@ -67,6 +74,7 @@ class Header extends Component {
       return 'header';
     };
 
+    // Navbar class depending on state
     const navbarClass = this.state.mobileMenuVisible
       ? 'navbar navbar--visible'
       : 'navbar';

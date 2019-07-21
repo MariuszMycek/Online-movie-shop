@@ -14,8 +14,11 @@ import Col from 'react-bootstrap/Col';
 import './ProductCard.scss';
 
 const ProductCard = ({ movies, router, addToCart, productsInCart }) => {
+  // Getting product Id from query
   const productId = +router.query.product_id;
-  const product = movies.find(movie => movie.id === productId);
+  // Checking if product is in store for faster loading
+  const product = movies.find(movie => movie.id === productId); // true - false
+  // Checking if product is in cart for button styles and "in cart info"
   const productInCart = productsInCart.find(
     cartElement => productId === cartElement.product.id
   );

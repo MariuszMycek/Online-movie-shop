@@ -18,27 +18,37 @@ class SearchBox extends Component {
       inputVisible: false,
     };
   }
-
+  // Handle change of input value
   handleOnchange = e => {
     this.setState({ inputValue: e.target.value });
   };
 
-  handleSubmit = async e => {
+  // Handle of search form submit
+  handleSubmit = e => {
+    // preventing page reload
     e.preventDefault();
+    // Checking if there is any content in the input field
     if (this.state.inputValue) {
+      // Redirecting to home page with searched phrase in query parameter
       Router.push(`/?phrase=${this.state.inputValue}`);
+      // Sending searched phrase to store
       this.props.setSearchedPhrase(this.state.inputValue);
+      // Reseting input value
       this.setState({ inputValue: '' });
     }
   };
 
   showInput = () => {
+    // Focusing input (after search button click)
     this.searchInput.focus();
+    // Updating state 
     this.setState({ inputVisible: true });
   };
 
   hideInput = () => {
+    // Updating state
     this.setState({ inputVisible: false });
+    // Closing mobile menu 
     this.props.closeMenu();
   };
 

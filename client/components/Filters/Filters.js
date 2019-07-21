@@ -10,97 +10,106 @@ import Form from 'react-bootstrap/Form';
 
 import './Filters.scss';
 
-class Filters extends Component {
-  handleChange = (value, type, e) => {
-    const { sort_by = 'noSort', phrase = '' } = this.props.router.query;
+const Filters = ({
+  years,
+  genres,
+  yearFilter,
+  genreFilter,
+  resetFilter,
+  setFilters,
+  router,
+}) => {
+  const { phrase = '' } = router.query;
+  const sortBy = router.query.sort_by || 'noSort';
+
+  // handle change of checkbox
+  const handleChange = (value, type, e) => {
+    // Getting filters from store
     const filters = {
-      yearFilter: this.props.yearFilter,
-      genreFilter: this.props.genreFilter,
+      yearFilter,
+      genreFilter,
     };
     let newFilters;
 
+    // Adding filter to array when checked
     if (e.target.checked) {
       newFilters = { ...filters, [type]: [...filters[type], value] };
-    } else {
+    }
+    // Removing filter from array when unchecked
+    else {
       newFilters = {
         ...filters,
         [type]: filters[type].filter(element => element !== value),
       };
     }
-    this.props.setFilters(newFilters);
-    Router.push(`/?sort_by=${sort_by}&page=1&phrase=${phrase}`);
+    // Updating the filters in store
+    setFilters(newFilters);
+    // Redirecting to the first page
+    Router.push(`/?sort_by=${sortBy}&page=1&phrase=${phrase}`);
   };
 
-  isChecked = (type, value) => {
-    this.props[type].includes(value) ? true : false;
+  const resetFilters = type => {
+    // Reseting filters in store
+    resetFilter(type);
+    // Redirecting to the first page
+    Router.push(`/?sort_by=${sortBy}&page=1&phrase=${phrase}`);
   };
 
-  resetFilter = type => {
-    const { sort_by = 'noSort', phrase = '' } = this.props.router.query;
-
-    this.props.resetFilter(type);
-    Router.push(`/?sort_by=${sort_by}&page=1&phrase=${phrase}`);
-  };
-
-  render() {
-    const { years, genres } = this.props;
-    return (
-      <div className="filters">
-        <div className="filters__release-year-filter">
-          <div className="filters__header-wrapper">
-            <h4>Rok wydania:</h4>
-            <button
-              className="filters__reset-button"
-              onClick={() => this.resetFilter('yearFilter')}
-            >
-              Reset
-            </button>
-          </div>
-          <Form className="filters__form filters__form--years">
-            {years.map(year => (
-              <Form.Check
-                className="filters__checkbox"
-                type="checkbox"
-                label={year}
-                key={year}
-                custom
-                id={`checkbox-${year}`}
-                onChange={e => this.handleChange(year, 'yearFilter', e)}
-                checked={this.props.yearFilter.includes(year)}
-              />
-            ))}
-          </Form>
+  return (
+    <div className="filters">
+      <div className="filters__release-year-filter">
+        <div className="filters__header-wrapper">
+          <h4>Rok wydania:</h4>
+          <button
+            className="filters__reset-button"
+            onClick={() => resetFilters('yearFilter')}
+          >
+            Reset
+          </button>
         </div>
-        <div className="filters__release-year-filter">
-          <div className="filters__header-wrapper">
-            <h4>Gatunek:</h4>
-            <button
-              className="filters__reset-button"
-              onClick={() => this.resetFilter('genreFilter')}
-            >
-              Reset
-            </button>
-          </div>
-
-          <Form className="filters__form filters__form--genres">
-            {genres.map(genre => (
-              <Form.Check
-                className="filters__checkbox"
-                type="checkbox"
-                label={genre}
-                key={genre}
-                custom
-                id={`checkbox-${genre}`}
-                onChange={e => this.handleChange(genre, 'genreFilter', e)}
-                checked={this.props.genreFilter.includes(genre)}
-              />
-            ))}
-          </Form>
-        </div>
+        <Form className="filters__form filters__form--years">
+          {years.map(year => (
+            <Form.Check
+              className="filters__checkbox"
+              type="checkbox"
+              label={year}
+              key={year}
+              custom
+              id={`checkbox-${year}`}
+              onChange={e => handleChange(year, 'yearFilter', e)}
+              checked={yearFilter.includes(year)}
+            />
+          ))}
+        </Form>
       </div>
-    );
-  }
-}
+      <div className="filters__release-year-filter">
+        <div className="filters__header-wrapper">
+          <h4>Gatunek:</h4>
+          <button
+            className="filters__reset-button"
+            onClick={() => resetFilters('genreFilter')}
+          >
+            Reset
+          </button>
+        </div>
+        <Form className="filters__form filters__form--genres">
+          {genres.map(genre => (
+            <Form.Check
+              className="filters__checkbox"
+              type="checkbox"
+              label={genre}
+              key={genre}
+              custom
+              id={`checkbox-${genre}`}
+              onChange={e => handleChange(genre, 'genreFilter', e)}
+              checked={genreFilter.includes(genre)}
+            />
+          ))}
+        </Form>
+      </div>
+    </div>
+  );
+};
 
 Filters.propTypes = {
   years: PropTypes.array,

@@ -22,9 +22,12 @@ const Product = () => {
 
 Product.getInitialProps = async ({ store, query }) => {
   const moviesInStore = store.getState().movies;
+
+  // Checking if movie is in store for faster loading
   const isMovieInStore = moviesInStore.find(
     movie => movie.id === +query.product_id
   );
+  // If not - fetching data from server
   if (!isMovieInStore) {
     await callApi(`product/${query.product_id}`).then(res => {
       store.dispatch(getMovies(res));

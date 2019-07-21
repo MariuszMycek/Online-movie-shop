@@ -67,21 +67,25 @@ const query = (yearsArray, genresArray, searchedPhrase) => {
 export function getMovies(req, res) {
   const { page, phrase, sort_by } = req.params;
 
-  const nPerPage = 6 || 6;
+  // Number of results for page
+  const nPerPage = 6;
 
   const { years = [], genres = [] } = req.body;
 
   Promise.all([
+    // Searching for movies depending on request params
     Movie.find(query(years, genres, phrase))
       .sort(sortBy(sort_by))
       .skip(page > 0 ? (page - 1) * nPerPage : 0)
       .limit(nPerPage)
       .exec(),
+    // Counting the results
     Movie.find(query(years, genres, phrase))
       .countDocuments()
       .exec(),
   ])
     .then(([movies, count]) => {
+      // Sending found movies and results count
       res.json({ movies, count });
     })
     .catch(err => res.status(500).send(err));

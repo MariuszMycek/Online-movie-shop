@@ -10,13 +10,13 @@ import DoubleRight from '../Icons/double-right.svg';
 
 import './Pagination.scss';
 
-const Pagination = props => {
-  const styleClass = 'pagination__list-item';
-  const activePage = props.activePage;
+const Pagination = ({ activePage, productCount, sortType, phrase }) => {
+  // Initial array for pages to display
   const items = [];
-  const pagesCount = Math.ceil(props.productCount / 6);
-  const { sortType } = props;
+  // Calculating of pages count based on items returned from DB
+  const pagesCount = Math.ceil(productCount / 6);
 
+  // Calculating first page number to display depending on actually displayed page
   const firstPageNumber = page => {
     if (page <= 3) {
       return 1;
@@ -30,6 +30,7 @@ const Pagination = props => {
     return page - 2;
   };
 
+  // Calculating last page number to display depending on actually displayed page
   const lastPageNumber = page => {
     if (pagesCount < 5) {
       return pagesCount;
@@ -46,25 +47,25 @@ const Pagination = props => {
     return page + 2;
   };
 
+  // Preparing pages to display
   for (
     let number = firstPageNumber(activePage);
     number <= lastPageNumber(activePage);
     number++
   ) {
+    // Styles of page number button - for active page and others
+    const buttonClass =
+      number === activePage
+        ? 'pagination__list-item pagination__list-item--active'
+        : 'pagination__list-item';
+    // Adding pages to pages array
     items.push(
       <Link
-        href={`/?sort_by=${sortType}&page=${number}&phrase=${props.phrase}`}
+        href={`/?sort_by=${sortType}&page=${number}&phrase=${phrase}`}
         key={number}
       >
         <li>
-          <button
-            disabled={number === activePage}
-            className={
-              number === activePage
-                ? `${styleClass} ${styleClass}--active`
-                : styleClass
-            }
-          >
+          <button disabled={number === activePage} className={buttonClass}>
             {number}
           </button>
         </li>
@@ -77,15 +78,14 @@ const Pagination = props => {
       <ul className="pagination__list">
         {activePage !== 1 ? (
           <div className="pagination__icon-wrapper">
-            <Link href={`/?sort_by=${sortType}&page=1&phrase=${props.phrase}`}>
+            <Link href={`/?sort_by=${sortType}&page=1&phrase=${phrase}`}>
               <li className="pagination__list-item">
                 <DoubleLeft className="pagination__icon pagination__icon--double-arrow" />
               </li>
             </Link>
             <Link
-              href={`/?sort_by=${sortType}&page=${activePage - 1}&phrase=${
-                props.phrase
-              }`}
+              href={`/?sort_by=${sortType}&page=${activePage -
+                1}&phrase=${phrase}`}
             >
               <li className="pagination__list-item">
                 <ArrowLeft className="pagination__icon" />
@@ -93,24 +93,19 @@ const Pagination = props => {
             </Link>
           </div>
         ) : null}
-
         {items}
-
         {activePage !== pagesCount && pagesCount !== 0 ? (
           <div className="pagination__icon-wrapper">
             <Link
-              href={`/?sort_by=${sortType}&page=${activePage + 1}&phrase=${
-                props.phrase
-              }`}
+              href={`/?sort_by=${sortType}&page=${activePage +
+                1}&phrase=${phrase}`}
             >
               <li className="pagination__list-item">
                 <ArrowRight className="pagination__icon" />
               </li>
             </Link>
             <Link
-              href={`/?sort_by=${sortType}&page=${pagesCount}&phrase=${
-                props.phrase
-              }`}
+              href={`/?sort_by=${sortType}&page=${pagesCount}&phrase=${phrase}`}
             >
               <li className="pagination__list-item">
                 <DoubleRight className="pagination__icon pagination__icon--double-arrow" />

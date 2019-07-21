@@ -29,27 +29,35 @@ class Cart extends Component {
     };
   }
 
+  // handle change of input field
   handleChange = event => {
     this.setState({ inputValue: event.target.value });
   };
 
+  // handle submit of discount form
   handleSubmit = event => {
     event.preventDefault();
+    // checking the code in DB
     this.props.getDiscount(this.state.inputValue);
-
+    // hiding input field and reseting input value
     this.setState({ inputValue: '', inputVisible: false });
   };
 
+  // showing and hiding input field
   handleToggleInput = () => {
     this.setState({ inputVisible: !this.state.inputVisible });
   };
 
+  // showing checkout modal
   showCheckoutModal = () => this.setState({ checkoutModalVisible: true });
 
+  // closeing checkout modal
   closeCheckoutModal = () => this.setState({ checkoutModalVisible: false });
 
+  // action after clicking on payment button
+  // closeing modal, reseting cart contents and redirecting to home page (temporary)
   handlePayment = () => {
-    this.setState({ checkoutModalVisible: false });
+    this.closeCheckoutModal();
     this.props.resetCart();
     Router.push('/');
   };
@@ -64,17 +72,21 @@ class Cart extends Component {
       setDiscount,
     } = this.props;
 
+    // checking if discount code was used
     const isDiscount = discount !== 0;
 
+    // array of total prices of cart items
     const productTotalPriceArray = products.map(
       item => item.amount * item.product.price
     );
 
+    // sum of all cart items total prices - total value of cart
     const totalPrice =
       productTotalPriceArray.length > 0
         ? +productTotalPriceArray.reduce((a, b) => a + b).toFixed(2)
         : 0;
 
+    // uding discount on total cart Value
     const totalPriceAfterDiscount = (
       totalPrice -
       (totalPrice * discount) / 100
@@ -83,7 +95,6 @@ class Cart extends Component {
     return (
       <Container>
         <GoBackButon />
-
         <div className="cart">
           <Row>
             <Col xl="7">

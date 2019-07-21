@@ -13,7 +13,9 @@ const CartItem = ({
   increaseTheAmount,
   decreaseTheAmount,
 }) => {
+  // calcualting total price of cart item - amount * price
   const totalItemPrice = item.amount * item.product.price;
+
   return (
     <div className="cart-item__item">
       <Row>

@@ -9,7 +9,7 @@ import '../client/styles/styles.scss';
 
 import Router from 'next/router';
 
-// Temporary solution for Next.js bug when styles for components are not loaded 
+// Temporary solution for Next.js bug when styles for components are not loaded
 // after page change in dev mode - problem does not occur in production mode
 Router.events.on('routeChangeComplete', () => {
   if (process.env.NODE_ENV !== 'production') {
@@ -22,14 +22,6 @@ Router.events.on('routeChangeComplete', () => {
 });
 
 class MyApp extends App {
-  // static async getInitialProps({ Component, ctx }) {
-  //   const pageProps = Component.getInitialProps
-  //     ? await Component.getInitialProps(ctx)
-  //     : {};
-
-  //   return { pageProps };
-  // }
-
   render() {
     const { Component, pageProps, store } = this.props;
     return (

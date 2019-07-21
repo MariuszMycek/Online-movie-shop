@@ -8,51 +8,40 @@ import * as sortTypeActions from '../../redux/auxiliaryActions';
 
 import './SortMenu.scss';
 
-const SortMenu = props => {
+const SortMenu = ({ phrase, sortType }) => {
+  // Setting style classes for active and not active links
   const styleClass = 'sort-menu__option';
+  const styleClsssActive = `${styleClass} ${styleClass}--active`;
+  
   return (
     <div className="sort-menu">
       <h4 className="sort-menu__header">Sortuj:</h4>
       <ul className="sort-menu__sorting-options">
-        <Link href={`/?sort_by=name_asc&page=1&phrase=${props.phrase}`}>
+        <Link href={`/?sort_by=name_asc&page=1&phrase=${phrase}`}>
           <li
-            className={
-              props.sortType === 'name_asc'
-                ? `${styleClass} ${styleClass}--active`
-                : styleClass
-            }
+            className={sortType === 'name_asc' ? styleClsssActive : styleClass}
           >
             Tytuł A-Z
           </li>
         </Link>
-        <Link href={`/?sort_by=name_desc&page=1&phrase=${props.phrase}`}>
+        <Link href={`/?sort_by=name_desc&page=1&phrase=${phrase}`}>
           <li
-            className={
-              props.sortType === 'name_desc'
-                ? `${styleClass} ${styleClass}--active`
-                : styleClass
-            }
+            className={sortType === 'name_desc' ? styleClsssActive : styleClass}
           >
             Tytuł Z-A
           </li>
         </Link>
-        <Link href={`/?sort_by=price_asc&page=1&phrase=${props.phrase}`}>
+        <Link href={`/?sort_by=price_asc&page=1&phrase=${phrase}`}>
           <li
-            className={
-              props.sortType === 'price_asc'
-                ? `${styleClass} ${styleClass}--active`
-                : styleClass
-            }
+            className={sortType === 'price_asc' ? styleClsssActive : styleClass}
           >
             Cena rosnąco
           </li>
         </Link>
-        <Link href={`/?sort_by=price_desc&page=1&phrase=${props.phrase}`}>
+        <Link href={`/?sort_by=price_desc&page=1&phrase=${phrase}`}>
           <li
             className={
-              props.sortType === 'price_desc'
-                ? `${styleClass} ${styleClass}--active`
-                : styleClass
+              sortType === 'price_desc' ? styleClsssActive : styleClass
             }
           >
             Cena malejąco

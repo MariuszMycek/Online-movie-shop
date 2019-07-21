@@ -50,21 +50,30 @@ Home.getInitialProps = async ({ store, query }) => {
 
   const auxiliary = store.getState().auxiliary;
 
+  // Checking if categories for filters are in store
   if (!auxiliary.yearsCategories && !auxiliary.genresCategories) {
+    // if not - fetching categories from DB
     await callApi('filter').then(res => {
+      // Sending fetched categories to store
       store.dispatch(setCategories(res.years, res.genres));
     });
   }
+  // Fetching data from DB
   await callApi(`home/${sort_by}/${page}/${phrase}`, 'SEARCH', {
+    // filters inside body
     years: auxiliary.yearFilter,
     genres: auxiliary.genreFilter,
   })
     .then(res => {
+      // Sending movies for actual page to store
       store.dispatch(getMovies(res.movies));
+      // Sending result count to store
       store.dispatch(setResultCount(res.count));
     })
     .then(() => {
+      // Setting sorting type in store
       store.dispatch(setSortType(sort_by));
+      // Setting searched phrase in store
       store.dispatch(setSearchedPhrase(phrase));
     });
 
