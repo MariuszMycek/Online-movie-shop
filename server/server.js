@@ -5,7 +5,7 @@ const dev = process.env.NODE_ENV !== 'production'; // true false
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler(); // part of next config
 const mongoose = require('mongoose');
-const sslRedirect = require('heroku-ssl-redirect');
+// const sslRedirect = require('heroku-ssl-redirect');
 
 import serverConfig from './config';
 
@@ -25,7 +25,7 @@ mongoose.connect(serverConfig.mongoURL, { useNewUrlParser: true }, error => {
 nextApp.prepare().then(() => {
   // express code here
   const app = express();
-  app.use(sslRedirect());
+  // app.use(sslRedirect());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use('/api', home);
