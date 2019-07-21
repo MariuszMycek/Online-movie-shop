@@ -55,12 +55,17 @@ export function resetCart() {
 
 export function getDiscount(value) {
   return dispatch => {
+    // Checking if entered code is in DB
     return callApi(`discount/${value}`).then(res => {
       if (res === null) {
+        // If not set discount in state to 0
         dispatch(setDiscount(0));
+        // and display proper alert
         alert('Niestety podany kod nie jest poprawny');
       } else {
+        // If code is correct set discount in state depending on server response
         dispatch(setDiscount(res.discount_value));
+        // and display proper alert
         alert(`Kod poprawny!
 
       Przyznano rabat w wysokości ${res.discount_value}%`);
