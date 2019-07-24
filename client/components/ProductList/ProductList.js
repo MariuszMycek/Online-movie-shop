@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux';
 import * as CartActions from '../../redux/cartActions';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import ProgressiveImage from 'react-progressive-image';
+import Spinner from '../Spinner/Spinner';
 
 import Pagination from '../Pagination/Pagination';
 
@@ -49,12 +51,20 @@ const ProductList = ({ movies, addToCart, router, products, auxiliary }) => {
                     <Row>
                       <Col xs="12" sm="6">
                         <div className="products__image">
-                          <img
+                          <ProgressiveImage
                             src={`https://image.tmdb.org/t/p/w500${
                               element.poster_path
                             }`}
-                            alt={element.original_title}
-                          />
+                            placeholder=""
+                          >
+                            {(src, loading) => {
+                              return loading ? (
+                                <Spinner />
+                              ) : (
+                                <img src={src} alt={element.original_title} />
+                              );
+                            }}
+                          </ProgressiveImage>
                           <Link href={`/product?product_id=${element.id}`}>
                             <div className="products__image-overlay">
                               <div className="products__overlay-text-box">

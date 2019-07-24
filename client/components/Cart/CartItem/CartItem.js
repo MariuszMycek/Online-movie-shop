@@ -5,6 +5,9 @@ import Link from 'next/link';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import ProgressiveImage from 'react-progressive-image';
+import Spinner from '../../Spinner/Spinner';
+
 import './CartItem.scss';
 
 const CartItem = ({
@@ -20,16 +23,22 @@ const CartItem = ({
     <div className="cart-item__item">
       <Row>
         <Col sm="3">
-          <div className="cart-item__item-thumbnail">
-            <Link href={`/product?product_id=${item.product.id}`}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${
-                  item.product.poster_path
-                }`}
-                alt="movie thumbnail"
-              />
-            </Link>
-          </div>
+          <ProgressiveImage
+            src={`https://image.tmdb.org/t/p/w500${item.product.poster_path}`}
+            placeholder=""
+          >
+            {(src, loading) => {
+              return loading ? (
+                <Spinner />
+              ) : (
+                <div className="cart-item__item-thumbnail">
+                  <Link href={`/product?product_id=${item.product.id}`}>
+                    <img src={src} alt="movie thumbnail" />
+                  </Link>
+                </div>
+              );
+            }}
+          </ProgressiveImage>
         </Col>
         <Col sm="9">
           <div className="cart-item__item-description">

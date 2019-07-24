@@ -80,6 +80,10 @@
       display: flex;
       justify-content: space-between;
 
+      @include media-breakpoint-only(md) {
+        width: 510px;
+      }
+
       @include media-breakpoint-down(sm) {
         flex-direction: column;
         width: 100%;
@@ -105,6 +109,10 @@
 
       @include media-breakpoint-down(md) {
         padding: 0 17px;
+      }
+      
+      @include media-breakpoint-only(md) {
+        padding: 0 15px;
       }
 
       &:hover {

@@ -6,7 +6,9 @@ import Head from '../Head';
 import Footer from '../Footer/Footer';
 
 // Disabling SSR because of window object using in Header component
-const Header = dynamic(import('../Header/Header'), { ssr: false });
+const Header = dynamic(import('../Header/Header'), {
+  ssr: false,
+});
 
 const Layout = ({ children }) => (
   <div>

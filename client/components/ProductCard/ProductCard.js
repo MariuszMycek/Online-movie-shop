@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 import * as CartActions from '../../redux/cartActions';
 
 import GoBackButon from '../GoBackButton/GoBackButton';
+import ProgressiveImage from 'react-progressive-image';
+import Spinner from '../Spinner/Spinner';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -31,10 +33,18 @@ const ProductCard = ({ movies, router, addToCart, productsInCart }) => {
           <Row>
             <Col md="6" lg="5">
               <div className="product-card__image">
-                <img
+                <ProgressiveImage
                   src={`https://image.tmdb.org/t/p/w500${product.poster_path}`}
-                  alt={product.original_title}
-                />
+                  placeholder=""
+                >
+                  {(src, loading) => {
+                    return loading ? (
+                      <Spinner />
+                    ) : (
+                      <img src={src} alt={product.original_title} />
+                    );
+                  }}
+                </ProgressiveImage>
               </div>
             </Col>
             <Col md="6" lg="7">

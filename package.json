@@ -15,6 +15,7 @@
   "dependencies": {
     "@babel/core": "^7.0.0-0",
     "@babel/register": "^7.4.4",
+    "@svgr/webpack": "^4.3.0",
     "@zeit/next-sass": "^1.0.1",
     "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
@@ -31,11 +32,13 @@
     "next-redux-wrapper": "^3.0.0-alpha.3",
     "nextjs-morph-page": "^2.0.3",
     "node-sass": "^4.12.0",
+    "nprogress": "^0.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-burgers": "^1.3.0",
     "react-dom": "^16.8.6",
+    "react-progressive-image": "^0.6.0",
     "react-redux": "^7.1.0",
     "react-router": "^3.2.1",
     "react-transition-group": "^4.2.1",
@@ -43,8 +46,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.1.0",
     "remote-redux-devtools": "^0.5.16",
-    "webpack": "^4.0.0",
-    "@svgr/webpack": "^4.3.0"
+    "webpack": "^4.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",
