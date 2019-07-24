@@ -53,6 +53,7 @@
   }
 
   &__product-card-wrapper {
+    box-shadow: 0 0 10px $product-list-item-shadow;
     height: 275px;
     position: absolute;
     top: 0;
@@ -110,7 +111,7 @@
 
       @include media-breakpoint-down(xs) {
         width: 240px;
-        height: 360px;
+        height: 358px;
       }
     }
   }
