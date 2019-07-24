@@ -166,7 +166,12 @@
       margin-left: 15px;
     }
   }
-
+  &__product-description {
+    @include media-breakpoint-only(xl) {
+      overflow-y: auto;
+      max-height: 215px;
+    }
+  }
   &__desc-title {
     @include media-breakpoint-down(md) {
       margin-bottom: 35px;
