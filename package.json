@@ -29,7 +29,6 @@
     "lodash": "^4.17.11",
     "mongoose": "5.6.1",
     "next": "^8.1.0",
-    "next-offline": "^4.0.2",
     "next-redux-wrapper": "^3.0.0-alpha.3",
     "nextjs-morph-page": "^2.0.3",
     "node-sass": "^4.12.0",

@@ -1,6 +1,5 @@
 const express = require('express');
 const next = require('next');
-const path = require('path');
 const bodyParser = require('body-parser');
 const dev = process.env.NODE_ENV !== 'production'; // true false
 const nextApp = next({ dev });
@@ -33,15 +32,6 @@ nextApp.prepare().then(() => {
   app.use('/api', product);
   app.use('/api', discount);
   app.use('/api', filter);
-  app.get('/service-worker.js', (req, res) => {
-    // Don't cache service worker is a best practice (otherwise clients wont get emergency bug fix)
-    res.set(
-      'Cache-Control',
-      'no-store, no-cache, must-revalidate, proxy-revalidate'
-    );
-    res.set('Content-Type', 'application/javascript');
-    nextApp.serveStatic(req, res, path.resolve('./.next/service-worker.js'));
-  });
   app.get('*', (req, res) => {
     return handle(req, res); // for all the react stuff
   });
