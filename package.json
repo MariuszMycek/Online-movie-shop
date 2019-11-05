@@ -27,7 +27,7 @@
     "heroku-ssl-redirect": "^0.0.4",
     "isomorphic-unfetch": "^3.0.0",
     "lodash": "^4.17.11",
-    "mongoose": "5.6.1",
+    "mongoose": "5.7.5",
     "next": "^8.1.0",
     "next-offline": "^4.0.2",
     "next-redux-wrapper": "^3.0.0-alpha.3",
